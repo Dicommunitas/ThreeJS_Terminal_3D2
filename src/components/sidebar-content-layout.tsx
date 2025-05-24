@@ -2,7 +2,7 @@
 /**
  * @fileoverview Componente para renderizar o conteúdo principal da sidebar.
  * Inclui os controles de filtro (busca por texto, sistema, área), o seletor de modo de coloração,
- * o gerenciador de camadas de visibilidade e os controles de câmera ("Focus on System").
+ * o gerenciador de camadas de visibilidade, os controles de câmera ("Focus on System") e um link para a documentação.
  */
 "use client";
 
@@ -16,7 +16,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { LayerManager } from "@/components/layer-manager";
 import { ColorModeSelector } from "@/components/color-mode-selector";
 import { CameraControlsPanel } from "@/components/camera-controls-panel";
-import { XIcon, SearchIcon, FilterIcon } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
+import { XIcon, SearchIcon, FilterIcon, BookOpenIcon } from "lucide-react";
 
 /**
  * Props para o componente SidebarContentLayout.
@@ -54,7 +55,7 @@ interface SidebarContentLayoutProps {
 }
 
 /**
- * Renderiza o layout do conteúdo da sidebar, incluindo filtros e painéis de controle.
+ * Renderiza o layout do conteúdo da sidebar, incluindo filtros, painéis de controle e link para documentação.
  * Utiliza uma ScrollArea para permitir a rolagem do conteúdo se ele exceder a altura da sidebar.
  * @param {SidebarContentLayoutProps} props As props do componente.
  * @returns {JSX.Element} O componente SidebarContentLayout.
@@ -158,6 +159,18 @@ export function SidebarContentLayout({
           onColorModeChange={onColorModeChange}
         />
         <LayerManager layers={layers} onToggleLayer={onToggleLayer} />
+
+        <Separator />
+        <Button
+          variant="link"
+          className="w-full justify-start text-sidebar-foreground/80 hover:text-sidebar-foreground"
+          asChild
+        >
+          <a href="http://localhost:8081" target="_blank" rel="noopener noreferrer">
+            <BookOpenIcon className="mr-2 h-4 w-4" />
+            Ver Documentação
+          </a>
+        </Button>
       </div>
     </ScrollArea>
   );
