@@ -1,3 +1,4 @@
+
 import { useRef, useEffect, useState, useCallback } from 'react';
 import * as THREE from 'three';
 import type { OrbitControls as OrbitControlsType } from 'three/examples/jsm/controls/OrbitControls.js';
@@ -112,7 +113,6 @@ export const useSceneSetup = (props: UseSceneSetupProps): UseSceneSetupReturn =>
     const pipeline = setupRenderPipeline(currentMount, sceneRef.current, cameraRef.current);
     if (!pipeline) {
       console.error("[useSceneSetup] Failed to setup render pipeline. Aborting setup.");
-      // Consider setting an error state here if needed
       return;
     }
     rendererRef.current = pipeline.renderer;
@@ -124,72 +124,59 @@ export const useSceneSetup = (props: UseSceneSetupProps): UseSceneSetupReturn =>
       setupLighting(sceneRef.current);
       groundMeshRef.current = setupGroundPlane(sceneRef.current);
     }
+    
+    let localControls: OrbitControlsType | null = null;
 
     import('three/examples/jsm/controls/OrbitControls.js')
       .then(module => {
         const OrbitControls = module.OrbitControls;
-        // Ensure camera and renderer are available before creating controls
         if (!cameraRef.current || !rendererRef.current?.domElement) {
           console.error("[useSceneSetup] Failed to initialize OrbitControls: Camera or Renderer domElement not ready.");
           return;
         }
 
-        controlsRef.current = new OrbitControls(cameraRef.current, rendererRef.current.domElement);
-        controlsRef.current.enableDamping = true;
+        localControls = new OrbitControls(cameraRef.current, rendererRef.current.domElement);
+        controlsRef.current = localControls; // Assign to the ref
+        
+        localControls.enableDamping = true;
 
         if (initialCameraLookAt) {
-          controlsRef.current.target.set(initialCameraLookAt.x, initialCameraLookAt.y, initialCameraLookAt.z);
+          localControls.target.set(initialCameraLookAt.x, initialCameraLookAt.y, initialCameraLookAt.z);
         } else {
           console.warn("[useSceneSetup] initialLookAt is undefined during OrbitControls setup. Using default target (0,0,0).");
-          controlsRef.current.target.set(0, 0, 0); // Fallback
+          localControls.target.set(0, 0, 0); 
         }
 
-        controlsRef.current.mouseButtons = {
+        localControls.mouseButtons = {
           LEFT: THREE.MOUSE.ROTATE,
           MIDDLE: THREE.MOUSE.DOLLY,
           RIGHT: THREE.MOUSE.PAN
         };
-        controlsRef.current.update();
+        localControls.update();
 
-        // Attach listener for camera changes and store cleanup function
-        const handleControlsChangeEnd = () => {
-          // Use the ref for the callback
-          if (cameraRef.current && controlsRef.current && onCameraChangeRef.current) {
-            const newCameraState: CameraState = {
-              position: cameraRef.current.position.clone(),
-              lookAt: controlsRef.current.target.clone(),
-            };
-            onCameraChangeRef.current(newCameraState);
-          }
-        };
-
-        // Check if controlsRef.current is available before adding event listener
-        if (controlsRef.current) {
-            controlsRef.current.addEventListener('end', handleControlsChangeEnd);
-             if (!controlsRef.current.userData) {
-                controlsRef.current.userData = {};
-            }
-             // Store cleanup in userData for easy access during hook cleanup
-            controlsRef.current.userData.cleanupControls = () => {
-                controlsRef.current?.removeEventListener('end', handleControlsChangeEnd);
-            };
-        }
-
-
+        localControls.addEventListener('end', handleControlsChangeEnd);
       })
       .catch(err => console.error("[useSceneSetup] Failed to load OrbitControls", err));
 
 
-    // Setup ResizeObserver
+    const handleControlsChangeEnd = () => {
+        if (cameraRef.current && controlsRef.current && onCameraChangeRef.current) {
+            const newCameraState: CameraState = {
+            position: cameraRef.current.position.clone(),
+            lookAt: controlsRef.current.target.clone(),
+            };
+            onCameraChangeRef.current(newCameraState);
+        }
+    };
+    
     const resizeObserver = new ResizeObserver(() => handleResize());
     resizeObserver.observe(currentMount);
 
-    // Use a timeout to ensure the initial size is calculated after the element is in the DOM
     const initialSetupTimeoutId = setTimeout(() => {
-      handleResize(); // Perform initial resize after a short delay
+      handleResize(); 
       setIsSceneReady(true);
       console.log('[useSceneSetup] Scene is now READY.');
-    }, 150); // Small delay to allow DOM to settle
+    }, 150); 
 
 
     /**
@@ -199,34 +186,26 @@ export const useSceneSetup = (props: UseSceneSetupProps): UseSceneSetupReturn =>
       console.log('[useSceneSetup] Setup useEffect CLEANUP running.');
       clearTimeout(initialSetupTimeoutId);
 
-      // Disconnect ResizeObserver
       if (currentMount) {
         resizeObserver.unobserve(currentMount);
       }
-
-      // Dispose OrbitControls and remove its event listener
-      if (controlsRef.current) {
-         if (controlsRef.current.userData?.cleanupControls && typeof controlsRef.current.userData.cleanupControls === 'function') {
-            controlsRef.current.userData.cleanupControls();
-         }
-        controlsRef.current.dispose();
-        controlsRef.current = null;
+      
+      if (localControls) { // Use the locally scoped variable for cleanup
+        localControls.removeEventListener('end', handleControlsChangeEnd);
+        localControls.dispose();
       }
+      controlsRef.current = null; // Clear the ref
 
-      // Dispose Ground Mesh geometry and material
       if (groundMeshRef.current) {
         groundMeshRef.current.geometry?.dispose();
         if (groundMeshRef.current.material instanceof THREE.Material) {
            (groundMeshRef.current.material as THREE.Material).dispose();
         }
-        // Remove from scene - although scene will be disposed, explicit removal is cleaner
         sceneRef.current?.remove(groundMeshRef.current);
         groundMeshRef.current = null;
       }
 
-      // Dispose Composer passes and Composer itself
        composerRef.current?.passes.forEach(pass => {
-            // Check if pass and its dispose method exist before calling
             if (pass && (pass as any).dispose && typeof (pass as any).dispose === 'function') {
                 (pass as any).dispose();
             }
@@ -234,7 +213,6 @@ export const useSceneSetup = (props: UseSceneSetupProps): UseSceneSetupReturn =>
        composerRef.current = null;
        outlinePassRef.current = null;
 
-      // Dispose Renderers and remove their DOM elements
       if (rendererRef.current) {
          if (rendererRef.current.domElement.parentNode === currentMount) {
              currentMount.removeChild(rendererRef.current.domElement);
@@ -247,15 +225,8 @@ export const useSceneSetup = (props: UseSceneSetupProps): UseSceneSetupReturn =>
          if (labelRendererRef.current.domElement.parentNode === currentMount) {
              currentMount.removeChild(labelRendererRef.current.domElement);
          }
-         // CSS2DRenderer doesn't have a public dispose method, but removing from DOM is key
          labelRendererRef.current = null;
       }
-
-      // Dispose Scene - this might dispose some objects twice if they weren't explicitly removed,
-      // but is a safety measure. A more thorough cleanup would explicitly dispose all objects
-      // before disposing the scene, but that can be complex.
-      // For this context, relying on Garbage Collection for scene and camera refs after setting to null is common.
-      // Dispose geometries/materials of equipment meshes should be handled elsewhere if not in scene.children
 
       sceneRef.current = null;
       cameraRef.current = null;
@@ -263,10 +234,8 @@ export const useSceneSetup = (props: UseSceneSetupProps): UseSceneSetupReturn =>
       setIsSceneReady(false);
       console.log('[useSceneSetup] Setup CLEANUP finished.');
     };
-
-  // Empty dependency array ensures this effect runs only on mount and unmount
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mountRef, initialCameraPosition.x, initialCameraPosition.y, initialCameraPosition.z, initialCameraLookAt.x, initialCameraLookAt.y, initialCameraLookAt.z]); // Added dependencies for initial camera state to ensure setup re-runs if these change
+  }, [mountRef, initialCameraPosition.x, initialCameraPosition.y, initialCameraPosition.z, initialCameraLookAt.x, initialCameraLookAt.y, initialCameraLookAt.z]); 
 
   return {
     sceneRef,
@@ -280,3 +249,4 @@ export const useSceneSetup = (props: UseSceneSetupProps): UseSceneSetupReturn =>
     isSceneReady,
   };
 };
+
