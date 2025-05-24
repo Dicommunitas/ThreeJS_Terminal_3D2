@@ -195,8 +195,8 @@ export default function Terminal3DPage(): JSX.Element {
 
   return (
     <SidebarProvider defaultOpen={false}>
-      {/* Alteração: de w-full para flex-1 e adicionado min-w-0 */}
-      <div className="h-screen flex-1 flex flex-col relative min-w-0">
+      {/* Wrapper para MainSceneArea e SidebarTrigger */}
+      <div className="h-screen flex-1 flex flex-col relative min-w-0 overflow-x-hidden"> {/* Adicionado overflow-x-hidden */}
         <MainSceneArea
           equipment={filteredEquipment}
           layers={layers}

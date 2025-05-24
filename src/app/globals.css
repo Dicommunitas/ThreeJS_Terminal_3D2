@@ -99,9 +99,7 @@ body {
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
+  /* REMOVED: * { @apply border-border; } */
   body {
     @apply bg-background text-foreground;
   }
