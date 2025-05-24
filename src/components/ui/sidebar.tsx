@@ -221,7 +221,7 @@ const Sidebar = React.forwardRef<
     }
     
     const placeholderDivClasses = cn(
-      "duration-200 relative h-svh w-[--sidebar-width] bg-transparent transition-[width] ease-linear",
+      "duration-200 relative h-svh w-[--sidebar-width] bg-sidebar transition-[width] ease-linear", // Changed bg-transparent to bg-sidebar
       "group-data-[collapsible=offcanvas]:w-0",
       "group-data-[side=right]:rotate-180",
       variant === "floating" || variant === "inset"

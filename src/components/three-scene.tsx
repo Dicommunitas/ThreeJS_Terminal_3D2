@@ -150,8 +150,8 @@ const ThreeScene: React.FC<ThreeSceneProps> = (props) => {
     });
 
     if (item.operationalState === 'Não aplicável') {
-      material.transparent = true;
-      material.opacity = 0.4; // Aumentada a transparência
+      material.transparent = false; // Changed for testing
+      material.opacity = 1.0; // Changed for testing
     } else {
       material.transparent = false;
       material.opacity = 1.0;

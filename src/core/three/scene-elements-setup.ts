@@ -49,8 +49,8 @@ export function setupGroundPlane(scene: THREE.Scene): THREE.Mesh {
     side: THREE.DoubleSide,
     metalness: 0.1,
     roughness: 0.8,
-    transparent: true,
-    opacity: 0.4,
+    transparent: false, // Changed for testing
+    opacity: 1.0,    // Changed for testing
   });
   const groundMesh = new THREE.Mesh(groundGeometry, groundMaterial);
   groundMesh.rotation.x = -Math.PI / 2;
@@ -99,7 +99,7 @@ export function setupRenderPipeline(
   renderer.setSize(initialWidth, initialHeight);
   renderer.shadowMap.enabled = false;
   scene.background = new THREE.Color(0xA9C1D1); 
-  scene.fog = new THREE.Fog(0xA9C1D1, 40, 150);
+  scene.fog = new THREE.Fog(0xA9C1D1, 200, 1000); // Fog pushed further out for testing
   console.log('[SceneElementsSetup.ts setupRenderPipeline] WebGLRenderer created.');
 
 
