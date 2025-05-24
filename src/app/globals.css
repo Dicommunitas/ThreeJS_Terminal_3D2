@@ -2,86 +2,99 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 @layer base {
   :root {
-    --background: 0 0% 10%; /* #1A1A1A Very Dark Grey */
-    --foreground: 75 100% 50%; /* #BFFF00 Electric Lime */
+    --background: 216 8% 19%; /* Dark Gray #2B3035 */
+    --foreground: 0 0% 98%; /* Light text for dark BG */
 
-    --card: 0 0% 10%;
-    --card-foreground: 75 100% 50%;
-    --popover: 0 0% 10%;
-    --popover-foreground: 75 100% 50%;
+    --card: 216 8% 15%;
+    --card-foreground: 0 0% 98%;
 
-    --primary: 75 100% 50%; /* Electric Lime */
-    --primary-foreground: 0 0% 10%; /* Very Dark Grey text on primary */
+    --popover: 216 8% 15%;
+    --popover-foreground: 0 0% 98%;
 
-    --secondary: 180 100% 50%; /* Cyan for secondary elements */
-    --secondary-foreground: 0 0% 10%; /* Very Dark Grey text on secondary */
+    --primary: 223 100% 58%; /* Deep Blue #2962FF */
+    --primary-foreground: 0 0% 98%; /* Ensuring contrast with primary */
 
-    --muted: 0 0% 15%; /* Slightly lighter dark grey */
-    --muted-foreground: 0 0% 60%; /* Lighter grey text on muted */
+    --secondary: 216 8% 25%;
+    --secondary-foreground: 0 0% 98%;
 
-    --accent: 180 100% 50%; /* Cyan */
-    --accent-foreground: 0 0% 10%; /* Very Dark Grey text on accent */
-    
-    --destructive: 0 84.2% 60.2%;
+    --muted: 216 8% 30%;
+    --muted-foreground: 0 0% 65%; /* Adjusted for readability */
+
+    --accent: 287 100% 58%; /* Vivid Purple #BE29FF */
+    --accent-foreground: 0 0% 98%; /* Ensuring contrast with accent */
+
+    --destructive: 0 72% 51%; /* Standard destructive red, slightly adjusted */
     --destructive-foreground: 0 0% 98%;
 
-    --border: 0 0% 20%; /* Slightly lighter border for contrast */
-    --input: 0 0% 15%; /* Input background */
-    --ring: 75 100% 50%; /* Electric Lime for focus rings */
+    --border: 216 8% 28%;
+    --input: 216 8% 28%;
+    --ring: 223 100% 58%; /* Primary color for rings */
 
     --chart-1: 12 76% 61%;
     --chart-2: 173 58% 39%;
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
+    
     --radius: 0.5rem;
 
-    /* Sidebar variables, kept for consistency but may not be used directly by VoxelTerm */
-    --sidebar-background: 0 0% 8%;
-    --sidebar-foreground: 75 100% 50%;
-    --sidebar-primary: 75 100% 50%;
-    --sidebar-primary-foreground: 0 0% 8%;
-    --sidebar-accent: 180 100% 50%;
-    --sidebar-accent-foreground: 0 0% 8%;
-    --sidebar-border: 0 0% 15%;
-    --sidebar-ring: 75 100% 50%;
+    /* Sidebar specific colors, ensuring they fit the dark theme */
+    --sidebar-background: 216 8% 12%; /* Darker than main background */
+    --sidebar-foreground: 0 0% 90%;
+    --sidebar-primary: 223 100% 58%; /* Primary color */
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 216 8% 22%; /* Subtle accent for sidebar elements */
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 216 8% 20%;
+    --sidebar-ring: 223 100% 58%; /* Primary color for rings */
   }
 
   .dark {
-    --background: 0 0% 10%;
-    --foreground: 75 100% 50%;
-    --card: 0 0% 10%;
-    --card-foreground: 75 100% 50%;
-    --popover: 0 0% 10%;
-    --popover-foreground: 75 100% 50%;
-    --primary: 75 100% 50%;
-    --primary-foreground: 0 0% 10%;
-    --secondary: 180 100% 50%;
-    --secondary-foreground: 0 0% 10%;
-    --muted: 0 0% 15%;
-    --muted-foreground: 0 0% 60%;
-    --accent: 180 100% 50%;
-    --accent-foreground: 0 0% 10%;
-    --destructive: 0 62.8% 30.6%;
+    /* Dark theme variables are now the default in :root. 
+       This .dark class can be used if a toggle is ever implemented,
+       or can be removed if only dark mode is desired.
+       For now, we'll keep it consistent with :root for simplicity,
+       as the app is dark by default. */
+    --background: 216 8% 19%;
+    --foreground: 0 0% 98%;
+    --card: 216 8% 15%;
+    --card-foreground: 0 0% 98%;
+    --popover: 216 8% 15%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 223 100% 58%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 216 8% 25%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 216 8% 30%;
+    --muted-foreground: 0 0% 65%;
+    --accent: 287 100% 58%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 20%;
-    --input: 0 0% 15%;
-    --ring: 75 100% 50%;
+    --border: 216 8% 28%;
+    --input: 216 8% 28%;
+    --ring: 223 100% 58%;
+    
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
-    --sidebar-background: 0 0% 8%;
-    --sidebar-foreground: 75 100% 50%;
-    --sidebar-primary: 75 100% 50%;
-    --sidebar-primary-foreground: 0 0% 8%;
-    --sidebar-accent: 180 100% 50%;
-    --sidebar-accent-foreground: 0 0% 8%;
-    --sidebar-border: 0 0% 15%;
-    --sidebar-ring: 75 100% 50%;
+
+    --sidebar-background: 216 8% 12%;
+    --sidebar-foreground: 0 0% 90%;
+    --sidebar-primary: 223 100% 58%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 216 8% 22%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 216 8% 20%;
+    --sidebar-ring: 223 100% 58%;
   }
 }
 
@@ -91,10 +104,5 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: var(--font-geist-mono), monospace; /* Prioritize monospaced font for terminal aesthetic */
-  }
-  /* Ensure inputs also use monospaced font if not handled by component styles */
-  input, textarea, button {
-    font-family: var(--font-geist-mono), monospace;
   }
 }

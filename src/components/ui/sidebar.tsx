@@ -1,3 +1,4 @@
+
 "use client"
 
 import * as React from "react"
@@ -116,6 +117,8 @@ const SidebarProvider = React.forwardRef<
     // This makes it easier to style the sidebar with Tailwind classes.
     const state = open ? "expanded" : "collapsed"
 
+    console.log("[SidebarProvider] State update:", { isMobile, open, openMobile, state, defaultOpen });
+
     const contextValue = React.useMemo<SidebarContext>(
       () => ({
         state,
@@ -176,8 +179,12 @@ const Sidebar = React.forwardRef<
     ref
   ) => {
     const { isMobile, state, openMobile, setOpenMobile } = useSidebar()
+    console.log("[Sidebar Component] Rendering. Props:", { side, variant, collapsible, className });
+    console.log("[Sidebar Component] Context State:", { isMobile, state, openMobile });
+
 
     if (collapsible === "none") {
+      console.log("[Sidebar Component] Rendering: collapsible='none'");
       return (
         <div
           className={cn(
@@ -193,6 +200,7 @@ const Sidebar = React.forwardRef<
     }
 
     if (isMobile) {
+      console.log("[Sidebar Component] Rendering: mobile Sheet");
       return (
         <Sheet open={openMobile} onOpenChange={setOpenMobile} {...props}>
           <SheetContent
@@ -211,6 +219,28 @@ const Sidebar = React.forwardRef<
         </Sheet>
       )
     }
+    
+    const placeholderDivClasses = cn(
+      "duration-200 relative h-svh w-[--sidebar-width] bg-transparent transition-[width] ease-linear",
+      "group-data-[collapsible=offcanvas]:w-0",
+      "group-data-[side=right]:rotate-180",
+      variant === "floating" || variant === "inset"
+        ? "group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)_+_theme(spacing.4))]"
+        : "group-data-[collapsible=icon]:w-[--sidebar-width-icon]"
+    );
+
+    const sidebarDivClasses = cn(
+      "duration-200 fixed inset-y-0 z-10 hidden h-svh w-[--sidebar-width] transition-[left,right,width] ease-linear md:flex",
+      side === "left"
+        ? "left-0 group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)]"
+        : "right-0 group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)]",
+      variant === "floating" || variant === "inset"
+        ? "p-2 group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)_+_theme(spacing.4)_+2px)]"
+        : "group-data-[collapsible=icon]:w-[--sidebar-width-icon] group-data-[side=left]:border-r group-data-[side=right]:border-l",
+      className
+    );
+    console.log("[Sidebar Component] Rendering: desktop. Placeholder classes:", placeholderDivClasses, "Sidebar classes:", sidebarDivClasses);
+
 
     return (
       <div
@@ -223,27 +253,10 @@ const Sidebar = React.forwardRef<
       >
         {/* This is what handles the sidebar gap on desktop */}
         <div
-          className={cn(
-            "duration-200 relative h-svh w-[--sidebar-width] bg-transparent transition-[width] ease-linear",
-            "group-data-[collapsible=offcanvas]:w-0",
-            "group-data-[side=right]:rotate-180",
-            variant === "floating" || variant === "inset"
-              ? "group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)_+_theme(spacing.4))]"
-              : "group-data-[collapsible=icon]:w-[--sidebar-width-icon]"
-          )}
+          className={placeholderDivClasses}
         />
         <div
-          className={cn(
-            "duration-200 fixed inset-y-0 z-10 hidden h-svh w-[--sidebar-width] transition-[left,right,width] ease-linear md:flex",
-            side === "left"
-              ? "left-0 group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)]"
-              : "right-0 group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)]",
-            // Adjust the padding for floating and inset variants.
-            variant === "floating" || variant === "inset"
-              ? "p-2 group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)_+_theme(spacing.4)_+2px)]"
-              : "group-data-[collapsible=icon]:w-[--sidebar-width-icon] group-data-[side=left]:border-r group-data-[side=right]:border-l",
-            className
-          )}
+          className={sidebarDivClasses}
           {...props}
         >
           <div
@@ -262,7 +275,7 @@ Sidebar.displayName = "Sidebar"
 const SidebarTrigger = React.forwardRef<
   React.ElementRef<typeof Button>,
   React.ComponentProps<typeof Button>
->(({ className, onClick, ...props }, ref) => {
+>(({ className, onClick, children, asChild, ...buttonSpecificProps }, ref) => {
   const { toggleSidebar } = useSidebar()
 
   return (
@@ -276,10 +289,17 @@ const SidebarTrigger = React.forwardRef<
         onClick?.(event)
         toggleSidebar()
       }}
-      {...props}
+      asChild={asChild}
+      {...buttonSpecificProps}
     >
-      <PanelLeft />
-      <span className="sr-only">Toggle Sidebar</span>
+      {asChild && children ? (
+        children
+      ) : (
+        <>
+          <PanelLeft />
+          <span className="sr-only">Toggle Sidebar</span>
+        </>
+      )}
     </Button>
   )
 })

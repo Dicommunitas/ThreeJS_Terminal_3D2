@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'VoxelTerm',
-  description: 'A 3D terminal experience built with Next.js and Three.js',
+  title: 'Terminal 3D',
+  description: '3D Visualization of Industrial Terminals',
 };
 
 export default function RootLayout({
@@ -24,8 +24,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark"> {/* Apply dark theme by default */}
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased font-mono bg-background text-foreground`}>
+    <html lang="en" className="dark">
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {children}
         <Toaster />
       </body>
