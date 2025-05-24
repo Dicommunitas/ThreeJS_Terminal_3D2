@@ -1,23 +1,27 @@
 
 /**
- * @fileOverview Custom hook to manage the state and logic for text annotations within the 3D scene.
- * Includes functionality for adding, removing, and updating annotations associated with equipment.
- */
-
-
-/**
  * @fileOverview Custom hook para gerenciar o estado e a lógica das anotações dos equipamentos.
  *
  * Responsabilidades:
  * - Manter a lista de anotações (`Annotation[]`).
- * - Controlar o estado de abertura/fechamento do diálogo de anotação.
- * - Rastrear o equipamento alvo para anotação e a anotação que está sendo editada.
- * - Fornecer funções para adicionar, salvar (atualizar) e excluir anotações.
+ * - Controlar o estado de abertura/fechamento do diálogo de anotação (`isAnnotationDialogOpen`).
+ * - Rastrear o equipamento alvo para anotação (`annotationTargetEquipment`) e a anotação
+ *   que está sendo editada (`editingAnnotation`).
+ * - Fornecer funções para:
+ *   - Abrir o diálogo de anotação (`handleOpenAnnotationDialog`).
+ *   - Salvar uma anotação (criar nova ou atualizar existente) (`handleSaveAnnotation`).
+ *   - Excluir uma anotação (`handleDeleteAnnotation`).
+ *   - Obter a anotação de um equipamento específico (`getAnnotationForEquipment`).
  * - Gerenciar a data de criação/modificação automática das anotações.
  * - Integrar com `useToast` para fornecer feedback ao usuário sobre as operações de anotação.
  *
- * Este hook NÃO gerencia o histórico de comandos (undo/redo) para as operações de anotação.
- * Cada equipamento pode ter no máximo uma anotação.
+ * Nota: Cada equipamento pode ter no máximo uma anotação. Este hook não gerencia
+ *       o histórico de comandos (undo/redo) para as operações de anotação.
+ *
+ * Exporta:
+ * - `useAnnotationManager`: O hook customizado.
+ * - `UseAnnotationManagerProps`: Props para o hook.
+ * - `UseAnnotationManagerReturn`: Tipo de retorno do hook.
  */
 "use client";
 
@@ -31,7 +35,7 @@ import { useToast } from '@/hooks/use-toast';
  * @property {Annotation[]} [initialAnnotations=[]] - Lista inicial opcional de anotações.
  * @property {Equipment[]} equipmentData - Lista completa de equipamentos, usada para buscar nomes para toasts e identificar alvos.
  */
-interface UseAnnotationManagerProps {
+export interface UseAnnotationManagerProps {
   initialAnnotations?: Annotation[];
   equipmentData: Equipment[];
 }
@@ -109,16 +113,14 @@ export function useAnnotationManager({ initialAnnotations = [], equipmentData }:
       let toastDescription: string;
 
       if (existingAnnotationIndex > -1) {
-        // Atualiza anotação existente
         newAnnotationsList = [...prevAnnotations];
         newAnnotationsList[existingAnnotationIndex] = {
           ...newAnnotationsList[existingAnnotationIndex],
           text: text,
-          createdAt: currentDate, // Atualiza a data de modificação
+          createdAt: currentDate, 
         };
         toastDescription = `Anotação para ${equipmentName} atualizada.`;
       } else {
-        // Adiciona nova anotação
         const newAnnotation: Annotation = {
           equipmentTag: annotationTargetEquipment.tag,
           text,
@@ -184,4 +186,3 @@ export function useAnnotationManager({ initialAnnotations = [], equipmentData }:
   };
 }
 
-    

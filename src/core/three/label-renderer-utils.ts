@@ -1,20 +1,24 @@
 
 /**
- * @fileOverview Utilitários para configurar e gerenciar o CSS2DRenderer
- * para exibir rótulos HTML (como os pins de anotação) sobrepostos à cena Three.js.
+ * @fileOverview Utilitários para gerenciar a exibição de rótulos HTML (pins de anotação)
+ * sobrepostos à cena Three.js utilizando `CSS2DRenderer` e `CSS2DObject`.
  *
  * Responsabilidades:
- * - Configurar o `CSS2DRenderer`.
- * - Anexar o elemento DOM do renderizador de rótulos ao contêiner da cena.
- * - Fornecer uma função para atualizar o tamanho do renderizador de rótulos.
- * - Gerenciar a criação, atualização e remoção dos pins de anotação (CSS2DObjects).
+ * - Fornecer uma função para atualizar o tamanho do `CSS2DRenderer` (`updateLabelRendererSize`).
+ * - Gerenciar a criação, atualização e remoção dos pins de anotação (`CSS2DObject`) na cena,
+ *   com base nos dados de anotações, posições dos equipamentos e visibilidade das camadas (`updateAnnotationPins`).
+ *
+ * Nota: A configuração inicial do `CSS2DRenderer` e sua anexação ao DOM são agora tratadas
+ *       em `setupRenderPipeline` no arquivo `scene-elements-setup.ts`.
+ *
+ * Exporta:
+ * - `updateLabelRendererSize`: Para ajustar o tamanho do renderer de rótulos.
+ * - `updateAnnotationPins`: Para sincronizar os pins de anotação com os dados da aplicação.
  */
 import * as THREE from 'three';
 import { CSS2DRenderer, CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer.js';
 import type { Annotation, Equipment, Layer } from '@/lib/types';
 
-// Não mais exportamos setupLabelRenderer diretamente, pois ele é chamado por setupRenderPipeline
-// export function setupLabelRenderer ...
 
 /**
  * Atualiza o tamanho do CSS2DRenderer.
@@ -67,7 +71,6 @@ export function updateAnnotationPins({
   existingPinsRef,
 }: UpdateAnnotationPinsParams): void {
   if (!scene || !labelRenderer || !Array.isArray(annotations) || !Array.isArray(equipmentData) || !Array.isArray(layers)) {
-    // console.log('[updateAnnotationPins] Skipping due to missing refs or invalid data.');
     return;
   }
 
@@ -117,3 +120,4 @@ export function updateAnnotationPins({
     });
   }
 }
+

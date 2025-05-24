@@ -5,10 +5,19 @@
  * Responsabilidades:
  * - Manter o estado atual da câmera (`currentCameraState`), incluindo posição e ponto de observação.
  * - Manter o estado do sistema alvo para enquadramento (`targetSystemToFrame`).
- * - Fornecer funções para definir a visão da câmera para um sistema específico e lidar com mudanças de câmera
- *   iniciadas pelo usuário na cena 3D.
- * - Integrar mudanças de câmera (exceto foco em sistema) com o histórico de comandos (`useCommandHistory`).
+ * - Fornecer funções para:
+ *   - Definir a visão da câmera para um sistema específico (`handleSetCameraViewForSystem`).
+ *   - Lidar com mudanças de câmera iniciadas pelo usuário na cena 3D (`handleCameraChangeFromScene`),
+ *     integrando-as com o histórico de comandos.
+ *   - Resetar o alvo de enquadramento após a conclusão (`onSystemFramed`).
  * - Fornecer posições e alvos iniciais padrão para a câmera.
+ *
+ * Exporta:
+ * - `defaultInitialCameraPosition`: Posição inicial padrão.
+ * - `defaultInitialCameraLookAt`: Ponto de observação inicial padrão.
+ * - `useCameraManager`: O hook customizado.
+ * - `UseCameraManagerProps`: Props para o hook.
+ * - `UseCameraManagerReturn`: Tipo de retorno do hook.
  */
 "use client";
 
@@ -25,7 +34,7 @@ export const defaultInitialCameraLookAt = { x: 0, y: 2, z: 0 };
  * @interface UseCameraManagerProps
  * @property {(command: Command) => void} executeCommand - Função para executar comandos e adicioná-los ao histórico.
  */
-interface UseCameraManagerProps {
+export interface UseCameraManagerProps {
   executeCommand: (command: Command) => void;
 }
 
@@ -82,7 +91,6 @@ export function useCameraManager({ executeCommand }: UseCameraManagerProps): Use
       lookAt: { ...currentCameraState.lookAt }
     } : undefined;
 
-    // Evita disparos repetitivos para o mesmo estado (com uma pequena tolerância)
     if (oldCameraStateSnapshot &&
         Math.abs(oldCameraStateSnapshot.position.x - newSceneCameraState.position.x) < 0.01 &&
         Math.abs(oldCameraStateSnapshot.position.y - newSceneCameraState.position.y) < 0.01 &&
@@ -122,4 +130,3 @@ export function useCameraManager({ executeCommand }: UseCameraManagerProps): Use
   };
 }
 
-    

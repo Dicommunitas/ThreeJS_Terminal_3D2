@@ -1,17 +1,18 @@
 
 /**
- * @fileoverview Gerencia interações do mouse dentro da cena Three.js para seleção e hover de equipamentos.
+ * @fileoverview Gerencia interações do mouse (clique e movimento) dentro da cena Three.js
+ * para seleção e hover de equipamentos.
  *
  * Responsabilidades:
  * - Processar eventos de clique do mouse para detectar seleção de equipamentos (single e multi-select).
  * - Processar eventos de movimento do mouse para detectar equipamentos sob o cursor (hover).
  * - Utilizar raycasting para identificar os objetos 3D intersectados pelo ponteiro do mouse.
  * - Invocar callbacks fornecidos (`onSelectEquipment` e `setHoveredEquipmentTag`) para notificar
- *   o componente `ThreeScene` sobre as interações detectadas.
+ *   o componente `ThreeScene` (ou outro chamador) sobre as interações detectadas.
  *
  * Exporta:
- * - `processSceneClick`: Função para processar cliques na cena.
- * - `processSceneMouseMove`: Função para processar movimentos do mouse na cena.
+ * - `processSceneClick`: Função para processar cliques na cena e determinar seleção.
+ * - `processSceneMouseMove`: Função para processar movimentos do mouse na cena e determinar hover.
  */
 import * as THREE from 'three';
 
@@ -38,7 +39,6 @@ export function processSceneClick(
   onSelectEquipmentCallback: (tag: string | null, isMultiSelect: boolean) => void
 ): void {
   if (!mountRefCurrent || !camera) {
-    // console.warn("[MouseInteraction] processSceneClick: Mount or camera ref not available.");
     return;
   }
 
@@ -54,8 +54,9 @@ export function processSceneClick(
 
   if (intersects.length > 0) {
     let selectedObject = intersects[0].object;
+    // Navega para cima na hierarquia até encontrar o objeto com userData.tag (o mesh principal do equipamento)
     while (selectedObject.parent && !selectedObject.userData.tag) {
-      if (selectedObject.parent instanceof THREE.Scene) break;
+      if (selectedObject.parent instanceof THREE.Scene) break; // Evita ir além da cena
       selectedObject = selectedObject.parent;
     }
     if (selectedObject.userData.tag) {
@@ -63,11 +64,8 @@ export function processSceneClick(
     }
   }
 
-  // console.log(`[MouseInteraction] Click processed. Tag: ${tagToSelect}, Multi: ${isMultiSelectModifierPressed}`);
   if (typeof onSelectEquipmentCallback === 'function') {
     onSelectEquipmentCallback(tagToSelect, isMultiSelectModifierPressed);
-  } else {
-    // console.error("[MouseInteraction] onSelectEquipmentCallback is not a function.");
   }
 }
 
@@ -89,7 +87,6 @@ export function processSceneMouseMove(
   setHoveredEquipmentTagCallback: (tag: string | null) => void
 ): void {
   if (!mountRefCurrent || !camera) {
-    // console.warn("[MouseInteraction] processSceneMouseMove: Mount or camera ref not available.");
     return;
   }
 
@@ -103,6 +100,7 @@ export function processSceneMouseMove(
   let foundHoverTag: string | null = null;
   if (intersects.length > 0) {
     let hoveredObjectCandidate = intersects[0].object;
+    // Navega para cima na hierarquia até encontrar o objeto com userData.tag
     while (hoveredObjectCandidate.parent && !hoveredObjectCandidate.userData.tag) {
       if (hoveredObjectCandidate.parent instanceof THREE.Scene) break;
       hoveredObjectCandidate = hoveredObjectCandidate.parent;
@@ -114,9 +112,6 @@ export function processSceneMouseMove(
 
   if (typeof setHoveredEquipmentTagCallback === 'function') {
     setHoveredEquipmentTagCallback(foundHoverTag);
-  } else {
-    // console.error("[MouseInteraction] setHoveredEquipmentTagCallback is not a function.");
   }
 }
 
-    

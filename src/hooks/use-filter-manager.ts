@@ -5,9 +5,15 @@
  * Responsabilidades:
  * - Manter os estados para o termo de busca textual (`searchTerm`).
  * - Manter os estados para os filtros de propriedades selecionadas (`selectedSistema`, `selectedArea`).
- * - Derivar as listas de opções únicas disponíveis para os filtros de Sistema e Área.
+ * - Derivar as listas de opções únicas disponíveis para os filtros de Sistema e Área,
+ *   garantindo que "All" (ou "Todos") esteja presente e ordenado.
  * - Calcular a lista de equipamentos filtrados (`filteredEquipment`) com base nos critérios atuais,
- *   utilizando a função `getFilteredEquipment` do `equipment-filter.ts`.
+ *   utilizando a função `getFilteredEquipment` de `src/core/logic/equipment-filter.ts`.
+ *
+ * Exporta:
+ * - `useFilterManager`: O hook customizado.
+ * - `UseFilterManagerProps`: Props para o hook.
+ * - `UseFilterManagerReturn`: Tipo de retorno do hook.
  */
 'use client';
 
@@ -105,4 +111,3 @@ export function useFilterManager({ allEquipment }: UseFilterManagerProps): UseFi
   };
 }
 
-    

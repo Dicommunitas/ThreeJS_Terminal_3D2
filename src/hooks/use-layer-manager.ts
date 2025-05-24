@@ -3,10 +3,16 @@
  * @fileOverview Custom hook para gerenciar o estado das camadas (layers) e a lógica para alternar sua visibilidade.
  *
  * Responsabilidades:
- * - Manter o estado da lista de camadas (`layers`), incluindo o nome, tipo de equipamento que controla e visibilidade.
+ * - Manter o estado da lista de camadas (`layers`), incluindo nome, tipo de equipamento que controla e visibilidade.
+ *   Inicializa com `initialLayers` de `src/core/data/initial-data.ts`.
  * - Fornecer uma função (`handleToggleLayer`) para alternar a visibilidade de uma camada específica.
  * - Integrar a alternância de visibilidade com o sistema de histórico de comandos (`useCommandHistory`)
- *   para permitir undo/redo.
+ *   para permitir operações de desfazer/refazer.
+ *
+ * Exporta:
+ * - `useLayerManager`: O hook customizado.
+ * - `UseLayerManagerProps`: Props para o hook.
+ * - `UseLayerManagerReturn`: Tipo de retorno do hook.
  */
 "use client";
 
@@ -19,7 +25,7 @@ import { initialLayers } from '@/core/data/initial-data';
  * @interface UseLayerManagerProps
  * @property {(command: Command) => void} executeCommand - Função para executar comandos e adicioná-los ao histórico.
  */
-interface UseLayerManagerProps {
+export interface UseLayerManagerProps {
   executeCommand: (command: Command) => void;
 }
 
@@ -79,4 +85,3 @@ export function useLayerManager({ executeCommand }: UseLayerManagerProps): UseLa
   return { layers, handleToggleLayer };
 }
 
-    

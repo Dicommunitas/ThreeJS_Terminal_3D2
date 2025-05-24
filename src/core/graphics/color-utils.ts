@@ -73,5 +73,7 @@ export function getEquipmentColor(item: Equipment, colorMode: ColorMode): THREE.
       finalColor.copy(baseColor);
       break;
   }
+  // console.log(`[ColorUtils.ts getEquipmentColor] Item: ${item.tag}, ColorMode: ${colorMode}, BaseColor: #${baseColor.getHexString()}, FinalColor: #${finalColor.getHexString()}, OpState: ${item.operationalState}`);
   return finalColor;
 }
+
