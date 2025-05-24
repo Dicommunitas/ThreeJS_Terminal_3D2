@@ -220,8 +220,14 @@ const Sidebar = React.forwardRef<
       )
     }
     
+    const placeholderBgClass =
+      collapsible === "offcanvas" && state === "expanded"
+        ? "bg-background" // Match page background for offcanvas expanded placeholder
+        : "bg-sidebar";   // Default sidebar bg for placeholder
+
     const placeholderDivClasses = cn(
-      "duration-200 relative h-svh w-[--sidebar-width] bg-sidebar transition-[width] ease-linear", // Changed bg-transparent to bg-sidebar
+      "duration-200 relative h-svh w-[--sidebar-width] transition-[width] ease-linear",
+      placeholderBgClass,
       "group-data-[collapsible=offcanvas]:w-0",
       "group-data-[side=right]:rotate-180",
       variant === "floating" || variant === "inset"
@@ -781,3 +787,5 @@ export {
   SidebarTrigger,
   useSidebar,
 }
+
+    
