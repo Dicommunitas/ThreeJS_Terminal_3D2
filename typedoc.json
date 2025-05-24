@@ -2,7 +2,7 @@
   "$schema": "https://typedoc.org/schema.json",
   "entryPoints": ["./src"],
   "entryPointStrategy": "expand",
-  "out": "documentation/api",
+  "out": "public/documentation/api",
   "plugin": [
     "typedoc-plugin-markdown",
     "typedoc-plugin-mermaid"
