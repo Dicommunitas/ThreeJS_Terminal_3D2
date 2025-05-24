@@ -220,44 +220,61 @@ const Sidebar = React.forwardRef<
       )
     }
     
-    const placeholderBgClass =
-      collapsible === "offcanvas" && state === "expanded"
-        ? "bg-background" // Match page background for offcanvas expanded placeholder
-        : "bg-sidebar";   // Default sidebar bg for placeholder
+    // Logic for placeholder div classes
+    const placeholderBaseClasses = "duration-200 relative h-svh transition-[width] ease-linear";
+    let placeholderWidthClass = "";
+    
+    if (collapsible === "offcanvas") {
+      placeholderWidthClass = "w-0"; // Offcanvas placeholder should always be w-0
+    } else if (collapsible === "icon") {
+      if (state === "collapsed") {
+        placeholderWidthClass = (variant === "floating" || variant === "inset")
+          ? "w-[calc(var(--sidebar-width-icon)_+_theme(spacing.4))]"
+          : "w-[--sidebar-width-icon]";
+      } else { // state === "expanded"
+        placeholderWidthClass = "w-[--sidebar-width]";
+      }
+    } else { // collapsible === "none" (already handled, but as a fallback for this structure)
+      placeholderWidthClass = "w-[--sidebar-width]";
+    }
+
+    const placeholderBgClass = (collapsible === "offcanvas" && state === "expanded")
+      ? "bg-background" // For expanded offcanvas, placeholder matches page bg
+      : "bg-sidebar";   // Otherwise, placeholder matches sidebar bg
 
     const placeholderDivClasses = cn(
-      "duration-200 relative h-svh w-[--sidebar-width] transition-[width] ease-linear",
+      placeholderBaseClasses,
+      placeholderWidthClass,
       placeholderBgClass,
-      "group-data-[collapsible=offcanvas]:w-0",
-      "group-data-[side=right]:rotate-180",
-      variant === "floating" || variant === "inset"
-        ? "group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)_+_theme(spacing.4))]"
-        : "group-data-[collapsible=icon]:w-[--sidebar-width-icon]"
+      "group-data-[side=right]:rotate-180" // Keep if used for styling direction
     );
 
     const sidebarDivClasses = cn(
       "duration-200 fixed inset-y-0 z-10 hidden h-svh w-[--sidebar-width] transition-[left,right,width] ease-linear md:flex",
       side === "left"
-        ? "left-0 group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)]"
-        : "right-0 group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)]",
-      variant === "floating" || variant === "inset"
-        ? "p-2 group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)_+_theme(spacing.4)_+2px)]"
-        : "group-data-[collapsible=icon]:w-[--sidebar-width-icon] group-data-[side=left]:border-r group-data-[side=right]:border-l",
+        ? "left-0" // Base position
+        : "right-0", // Base position
+      // Sliding logic for offcanvas when collapsed
+      collapsible === "offcanvas" && state === "collapsed" && (side === "left" ? "left-[calc(var(--sidebar-width)*-1)]" : "right-[calc(var(--sidebar-width)*-1)]"),
+      // Width logic for icon mode when collapsed
+      collapsible === "icon" && state === "collapsed" && ((variant === "floating" || variant === "inset") ? "w-[calc(var(--sidebar-width-icon)_+_theme(spacing.4)_+2px)]" : "w-[--sidebar-width-icon]"),
+      // Border logic for default variant
+      variant !== "floating" && variant !== "inset" && (side === "left" ? "border-r" : "border-l"),
       className
     );
-    console.log("[Sidebar Component] Rendering: desktop. Placeholder classes:", placeholderDivClasses, "Sidebar classes:", sidebarDivClasses);
 
+    console.log("[Sidebar Component] Rendering: desktop. Placeholder classes:", placeholderDivClasses, "Sidebar classes:", sidebarDivClasses);
 
     return (
       <div
         ref={ref}
         className="group peer hidden md:block text-sidebar-foreground"
         data-state={state}
+        // data-collapsible is primarily for styling collapsed states via group-data
         data-collapsible={state === "collapsed" ? collapsible : ""}
         data-variant={variant}
         data-side={side}
       >
-        {/* This is what handles the sidebar gap on desktop */}
         <div
           className={placeholderDivClasses}
         />
@@ -787,5 +804,3 @@ export {
   SidebarTrigger,
   useSidebar,
 }
-
-    
