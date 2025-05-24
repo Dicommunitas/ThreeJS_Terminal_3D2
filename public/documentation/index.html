@@ -1,83 +1,35 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Documentação - Terminal 3D</title>
+  <title>3D Terminal System - Documentation</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta name="description" content="Documentação técnica do projeto Terminal 3D.">
+  <meta name="description" content="Documentation for the 3D Terminal System">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
-  <style>
-    .mermaid {
-      margin-bottom: 20px;
-      text-align: center; /* Centraliza diagramas mermaid */
-    }
-  </style>
 </head>
 <body>
-  <div id="app">Carregando documentação...</div>
+  <div id="app"></div>
   <script>
     window.$docsify = {
-      name: 'Terminal 3D',
-      repo: '', // Opcional: Adicione o link do repositório GitHub aqui
-      loadSidebar: true, // Carrega _sidebar.md do mesmo diretório
-      subMaxLevel: 3, // Profundidade da navegação na sidebar
-      // alias: { // Removido pois loadSidebar: true deve encontrar _sidebar.md localmente
-      //   '/.*/_sidebar.md': '/documentation/_sidebar.md' 
-      // },
-      search: {
-        maxAge: 86400000, // Expiration time, the default is 1 day
-        paths: 'auto',
-        placeholder: 'Buscar na documentação',
-        noData: 'Nenhum resultado encontrado!',
-        // Headline depth, 1 - 6
-        depth: 3,
+      name: '3D Terminal System',
+      repo: '', // Add your repo URL here if you have one
+      loadSidebar: true, // Looks for _sidebar.md in the same directory as index.html
+      subMaxLevel: 3,
+      homepage: 'README.md', // Will be resolved relative to this index.html
+      // basePath: '/documentation/', // Removed: Let Docsify resolve paths relative to this index.html
+      // routerMode: 'history', // Optional: for cleaner URLs, but ensure server handles fallbacks
+      executeScript: true, // For Mermaid
+      mermaidConfig: {
+        theme: 'neutral', // Or 'dark', 'forest', etc.
       },
-      basePath: '/documentation/', // Define o caminho base para Docsify
-      plugins: [
-        function(hook, vm) {
-          hook.doneEach(function() {
-            // Garante que diagramas Mermaid sejam renderizados após carregamento/mudança de página
-            if (window.mermaid) {
-              try {
-                window.mermaid.run({
-                  nodes: document.querySelectorAll('.mermaid')
-                });
-              } catch (e) {
-                console.error("Erro ao renderizar Mermaid:", e);
-              }
-            }
-          });
-        }
-      ],
-      markdown: {
-        renderer: {
-          code: function(code, lang) {
-            if (lang === 'mermaid') {
-              return (
-                '<div class="mermaid">' + mermaid.render('mermaid-svg-' + Date.now(), code) + '</div>'
-              );
-            }
-            // Fallback para renderização de código padrão do Docsify
-            const hl = window.Prism ? window.Prism.highlight(code, window.Prism.languages[lang] || window.Prism.languages.markup, lang) : code;
-            return '<pre v-pre data-lang="' + lang + '"><code class="lang-' + lang + '">' + hl + '</code></pre>';
-          }
-        }
-      }
     }
   </script>
   <!-- Docsify v4 -->
   <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
-  <!-- Docsify Search Plugin -->
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
-  <!-- Mermaid -->
-  <script src="//cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
-  <script>
-    // Inicializa o Mermaid. startOnLoad:false porque vamos chamar mermaid.run() via plugin do Docsify.
-    mermaid.initialize({ startOnLoad: false, theme: 'default' });
-  </script>
-  <!-- Docsify Prism para syntax highlighting -->
-  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-core.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/prismjs@1/plugins/autoloader/prism-autoloader.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify-copy-code"></script>
+  <script src="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify-mermaid@latest/dist/docsify-mermaid.js"></script>
 </body>
 </html>
