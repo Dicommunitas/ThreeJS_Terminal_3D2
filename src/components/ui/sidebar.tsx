@@ -117,8 +117,6 @@ const SidebarProvider = React.forwardRef<
     // This makes it easier to style the sidebar with Tailwind classes.
     const state = open ? "expanded" : "collapsed"
 
-    console.log("[SidebarProvider] State update:", { isMobile, open, openMobile, state, defaultOpen });
-
     const contextValue = React.useMemo<SidebarContext>(
       () => ({
         state,
@@ -179,12 +177,9 @@ const Sidebar = React.forwardRef<
     ref
   ) => {
     const { isMobile, state, openMobile, setOpenMobile } = useSidebar()
-    console.log("[Sidebar Component] Rendering. Props:", { side, variant, collapsible, className });
-    console.log("[Sidebar Component] Context State:", { isMobile, state, openMobile });
 
 
     if (collapsible === "none") {
-      console.log("[Sidebar Component] Rendering: collapsible='none'");
       return (
         <div
           className={cn(
@@ -200,7 +195,6 @@ const Sidebar = React.forwardRef<
     }
 
     if (isMobile) {
-      console.log("[Sidebar Component] Rendering: mobile Sheet");
       return (
         <Sheet open={openMobile} onOpenChange={setOpenMobile} {...props}>
           <SheetContent
@@ -225,7 +219,7 @@ const Sidebar = React.forwardRef<
     let placeholderWidthClass = "";
     
     if (collapsible === "offcanvas") {
-      placeholderWidthClass = "w-0"; // Offcanvas placeholder should always be w-0
+      placeholderWidthClass = "w-0"; // Offcanvas placeholder should ALWAYS be w-0, regardless of state.
     } else if (collapsible === "icon") {
       if (state === "collapsed") {
         placeholderWidthClass = (variant === "floating" || variant === "inset")
@@ -234,43 +228,43 @@ const Sidebar = React.forwardRef<
       } else { // state === "expanded"
         placeholderWidthClass = "w-[--sidebar-width]";
       }
-    } else { // collapsible === "none" (already handled, but as a fallback for this structure)
+    } else { // collapsible === "none" (already handled)
       placeholderWidthClass = "w-[--sidebar-width]";
     }
 
-    const placeholderBgClass = (collapsible === "offcanvas" && state === "expanded")
-      ? "bg-background" // For expanded offcanvas, placeholder matches page bg
-      : "bg-sidebar";   // Otherwise, placeholder matches sidebar bg
+    // Determine placeholder background:
+    // For offcanvas (expanded or collapsed), or icon (collapsed and inset/floating), it should match the main page background.
+    // Otherwise, it matches the sidebar background.
+    let placeholderBgClass = "bg-sidebar"; // Default
+    if (collapsible === "offcanvas") {
+      placeholderBgClass = "bg-background";
+    } else if (collapsible === "icon" && state === "collapsed" && (variant === "floating" || variant === "inset")) {
+      placeholderBgClass = "bg-background";
+    }
+
 
     const placeholderDivClasses = cn(
       placeholderBaseClasses,
       placeholderWidthClass,
       placeholderBgClass,
-      "group-data-[side=right]:rotate-180" // Keep if used for styling direction
+      "group-data-[side=right]:rotate-180" 
     );
 
     const sidebarDivClasses = cn(
       "duration-200 fixed inset-y-0 z-10 hidden h-svh w-[--sidebar-width] transition-[left,right,width] ease-linear md:flex",
       side === "left"
-        ? "left-0" // Base position
-        : "right-0", // Base position
-      // Sliding logic for offcanvas when collapsed
-      collapsible === "offcanvas" && state === "collapsed" && (side === "left" ? "left-[calc(var(--sidebar-width)*-1)]" : "right-[calc(var(--sidebar-width)*-1)]"),
-      // Width logic for icon mode when collapsed
+        ? (state === "collapsed" && collapsible === "offcanvas" ? "left-[calc(var(--sidebar-width)*-1)]" : "left-0")
+        : (state === "collapsed" && collapsible === "offcanvas" ? "right-[calc(var(--sidebar-width)*-1)]" : "right-0"),
       collapsible === "icon" && state === "collapsed" && ((variant === "floating" || variant === "inset") ? "w-[calc(var(--sidebar-width-icon)_+_theme(spacing.4)_+2px)]" : "w-[--sidebar-width-icon]"),
-      // Border logic for default variant
       variant !== "floating" && variant !== "inset" && (side === "left" ? "border-r" : "border-l"),
       className
     );
-
-    console.log("[Sidebar Component] Rendering: desktop. Placeholder classes:", placeholderDivClasses, "Sidebar classes:", sidebarDivClasses);
 
     return (
       <div
         ref={ref}
         className="group peer hidden md:block text-sidebar-foreground"
         data-state={state}
-        // data-collapsible is primarily for styling collapsed states via group-data
         data-collapsible={state === "collapsed" ? collapsible : ""}
         data-variant={variant}
         data-side={side}

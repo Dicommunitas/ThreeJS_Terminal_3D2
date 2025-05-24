@@ -50,8 +50,6 @@ import { AnnotationDialog } from '@/components/annotation-dialog';
  * @returns {JSX.Element} O componente da página Terminal 3D.
  */
 export default function Terminal3DPage(): JSX.Element {
-  console.log("[Page.tsx] Terminal3DPage rendering init");
-
   // Hooks de gerenciamento de estado
   const { executeCommand, undo, redo, canUndo, canRedo } = useCommandHistory();
 
@@ -118,7 +116,6 @@ export default function Terminal3DPage(): JSX.Element {
    * @param {string} systemName - O nome do sistema para focar e selecionar.
    */
   const handleFocusAndSelectSystem = useCallback((systemName: string) => {
-    console.log(`[Page.tsx] Focusing and selecting system: ${systemName}`);
     handleSetCameraViewForSystem(systemName); // Do useCameraManager
     const equipmentInSystem = equipmentData
       .filter(equip => equip.sistema === systemName)
@@ -185,18 +182,10 @@ export default function Terminal3DPage(): JSX.Element {
     return sortedProducts;
   }, [equipmentData]);
 
-  console.log("[Page.tsx] Data before render:", {
-    filteredEquipmentCount: filteredEquipment?.length,
-    layers: JSON.stringify(layers),
-    colorMode,
-    selectedEquipmentTags,
-    hoveredEquipmentTag,
-  });
-
   return (
     <SidebarProvider defaultOpen={false}>
       {/* Wrapper para MainSceneArea e SidebarTrigger */}
-      <div className="h-screen flex-1 flex flex-col relative min-w-0 overflow-x-hidden"> {/* Adicionado overflow-x-hidden */}
+      <div className="h-screen flex-1 flex flex-col relative min-w-0 overflow-x-hidden">
         <MainSceneArea
           equipment={filteredEquipment}
           layers={layers}

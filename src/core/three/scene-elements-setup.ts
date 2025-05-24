@@ -24,17 +24,14 @@ import type { Equipment, Layer, ColorMode } from '@/lib/types';
 export function setupLighting(scene: THREE.Scene): void {
   const ambientLight = new THREE.AmbientLight(0xffffff, 2.0);
   scene.add(ambientLight);
-  console.log('[SceneElementsSetup.ts setupLighting] AmbientLight added.');
 
   const hemisphereLight = new THREE.HemisphereLight(0xADD8E6, 0x495436, 0.8);
   scene.add(hemisphereLight);
-  console.log('[SceneElementsSetup.ts setupLighting] HemisphereLight added.');
 
   const directionalLight = new THREE.DirectionalLight(0xffffff, 3.0);
   directionalLight.position.set(10, 15, 10);
   directionalLight.castShadow = false;
   scene.add(directionalLight);
-  console.log('[SceneElementsSetup.ts setupLighting] DirectionalLight added.');
 }
 
 /**
@@ -49,8 +46,8 @@ export function setupGroundPlane(scene: THREE.Scene): THREE.Mesh {
     side: THREE.DoubleSide,
     metalness: 0.1,
     roughness: 0.8,
-    transparent: false, // Changed for testing
-    opacity: 1.0,    // Changed for testing
+    transparent: false,
+    opacity: 1.0,
   });
   const groundMesh = new THREE.Mesh(groundGeometry, groundMaterial);
   groundMesh.rotation.x = -Math.PI / 2;
@@ -58,7 +55,6 @@ export function setupGroundPlane(scene: THREE.Scene): THREE.Mesh {
   groundMesh.receiveShadow = false;
   groundMesh.userData = { tag: 'terrain-ground-plane' }; 
   scene.add(groundMesh);
-  console.log('[SceneElementsSetup.ts setupGroundPlane] Ground plane added to scene.');
   return groundMesh;
 }
 
@@ -87,7 +83,6 @@ export function setupRenderPipeline(
   outlinePass: OutlinePass;
 } | null {
   if (!mountElement) {
-    console.error("[SceneElementsSetup.ts] setupRenderPipeline: mountElement is not valid.");
     return null;
   }
   const initialWidth = Math.max(1, mountElement.clientWidth);
@@ -99,8 +94,7 @@ export function setupRenderPipeline(
   renderer.setSize(initialWidth, initialHeight);
   renderer.shadowMap.enabled = false;
   scene.background = new THREE.Color(0xA9C1D1); 
-  scene.fog = new THREE.Fog(0xA9C1D1, 200, 1000); // Fog pushed further out for testing
-  console.log('[SceneElementsSetup.ts setupRenderPipeline] WebGLRenderer created.');
+  scene.fog = new THREE.Fog(0xA9C1D1, 200, 1000); 
 
 
   // CSS2D Renderer para rótulos HTML
@@ -110,7 +104,6 @@ export function setupRenderPipeline(
   labelRenderer.domElement.style.top = '0px';
   labelRenderer.domElement.style.left = '0px';
   labelRenderer.domElement.style.pointerEvents = 'none';
-  console.log('[SceneElementsSetup.ts setupRenderPipeline] CSS2DRenderer created.');
 
   // EffectComposer e Passes para Pós-Processamento
   const composer = new EffectComposer(renderer);
@@ -125,7 +118,6 @@ export function setupRenderPipeline(
   outlinePass.hiddenEdgeColor.set('#190a05');
   outlinePass.pulsePeriod = 0;
   composer.addPass(outlinePass);
-  console.log('[SceneElementsSetup.ts setupRenderPipeline] EffectComposer with RenderPass and OutlinePass created.');
 
   if (!renderer.domElement.parentNode) {
     mountElement.appendChild(renderer.domElement);
@@ -133,7 +125,6 @@ export function setupRenderPipeline(
   if (!labelRenderer.domElement.parentNode) {
     mountElement.appendChild(labelRenderer.domElement);
   }
-  console.log('[SceneElementsSetup.ts setupRenderPipeline] Renderers appended to mountElement.');
 
   return { renderer, labelRenderer, composer, outlinePass };
 }
@@ -175,13 +166,10 @@ export function updateEquipmentMeshesInScene({
   createSingleEquipmentMesh,
   groundMeshRef,
 }: UpdateEquipmentMeshesParams): void {
-  console.log(`[SceneElementsSetup.ts updateEquipmentMeshesInScene] Start. New data count: ${newEquipmentData?.length}. Layers: ${JSON.stringify(layers)}`);
   if (!scene) {
-    console.warn('[SceneElementsSetup.ts updateEquipmentMeshesInScene] scene is null.');
     return;
   }
   if (!equipmentMeshesRef || equipmentMeshesRef.current === undefined || equipmentMeshesRef.current === null) {
-    console.error('[SceneElementsSetup.ts updateEquipmentMeshesInScene] equipmentMeshesRef or its .current is undefined/null.');
     return;
   }
    
@@ -204,7 +192,6 @@ export function updateEquipmentMeshesInScene({
     const isVisibleByLayer = layerForItem?.isVisible ?? (itemInNewData ? true : false); 
 
     if (!tagsInNewData.has(itemTag) || (itemInNewData && !isVisibleByLayer)) {
-      console.log(`[SceneElementsSetup.ts updateEquipmentMeshesInScene] Removing mesh ${itemTag}. Reason: ${!tagsInNewData.has(itemTag) ? 'Not in new data' : 'Layer hidden'}. Layer visible: ${isVisibleByLayer}`);
       scene.remove(mesh);
       if (mesh instanceof THREE.Mesh) {
         mesh.geometry?.dispose();
@@ -224,14 +211,12 @@ export function updateEquipmentMeshesInScene({
     const isVisibleByLayer = layerForItem?.isVisible ?? true; // Default to true if layer not found for type (should be configured)
 
     if (!isVisibleByLayer) {
-      console.log(`[SceneElementsSetup.ts updateEquipmentMeshesInScene] Item ${item.tag} (type: ${item.type}) is hidden by layer '${layerForItem?.name}'. Skipping add/update.`);
       return; // Skip if layer for this item type is not visible
     }
 
     let existingMesh = currentMeshesByTag.get(item.tag);
 
     if (existingMesh) {
-        console.log(`[SceneElementsSetup.ts updateEquipmentMeshesInScene] Recreating mesh for ${item.tag} due to potential material/color change or simple update strategy.`);
         scene.remove(existingMesh);
         if (existingMesh instanceof THREE.Mesh) {
             existingMesh.geometry?.dispose();
@@ -241,20 +226,15 @@ export function updateEquipmentMeshesInScene({
                 (existingMesh.material as THREE.Material).dispose();
             }
         }
-    } else {
-      console.log(`[SceneElementsSetup.ts updateEquipmentMeshesInScene] Creating new mesh for ${item.tag}.`);
     }
     
     const newOrUpdatedMesh = createSingleEquipmentMesh(item); 
     newOrUpdatedMesh.visible = isVisibleByLayer; // Ensure mesh.visible reflects layer visibility
     scene.add(newOrUpdatedMesh);
     newVisibleMeshesList.push(newOrUpdatedMesh);
-    console.log(`[SceneElementsSetup.ts updateEquipmentMeshesInScene] Added/Updated mesh ${item.tag} to scene. Visible: ${newOrUpdatedMesh.visible}`);
   });
 
   equipmentMeshesRef.current = newVisibleMeshesList;
-  console.log(`[SceneElementsSetup.ts updateEquipmentMeshesInScene] Final equipmentMeshesRef.current count: ${equipmentMeshesRef.current.length}`);
-  equipmentMeshesRef.current.forEach(m => console.log(`[SceneElementsSetup.ts updateEquipmentMeshesInScene] Mesh in scene: ${m.userData.tag}, visible: ${m.visible}`));
 
 
   // 3. Gerenciar visibilidade do plano de chão
@@ -265,13 +245,9 @@ export function updateEquipmentMeshesInScene({
     
     if (groundShouldBeVisible && !isGroundInScene) {
       scene.add(groundMeshRef.current);
-      console.log(`[SceneElementsSetup.ts updateEquipmentMeshesInScene] Ground plane added to scene (was hidden). Layer visibility: ${groundShouldBeVisible}`);
     } else if (!groundShouldBeVisible && isGroundInScene) {
       scene.remove(groundMeshRef.current);
-      console.log(`[SceneElementsSetup.ts updateEquipmentMeshesInScene] Ground plane removed from scene (was visible). Layer visibility: ${groundShouldBeVisible}`);
     }
     groundMeshRef.current.visible = groundShouldBeVisible; // Also update its direct visibility property
-  } else if (terrainLayer && !groundMeshRef.current) {
-      console.warn('[SceneElementsSetup.ts updateEquipmentMeshesInScene] Terrain layer exists but groundMeshRef.current is null.');
   }
 }
