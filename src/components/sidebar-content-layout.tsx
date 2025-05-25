@@ -166,7 +166,7 @@ export function SidebarContentLayout({
           className="w-full justify-start text-sidebar-foreground/80 hover:text-sidebar-foreground"
           asChild
         >
-          <a href="/documentation/index.html" target="_blank" rel="noopener noreferrer">
+          <a href="/documentation/architecture.md" target="_blank" rel="noopener noreferrer">
             <BookOpenIcon className="mr-2 h-4 w-4" />
             Ver Documentação
           </a>
