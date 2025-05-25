@@ -8,7 +8,7 @@
 
 > **useMouseInteraction**(`scene`, `camera`, `interactiveObjects`, `onObjectClick`, `onObjectHover`, `domElement`): `void`
 
-Defined in: [src/hooks/use-mouse-interaction.ts:20](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/7cc56be20ce03492e7afbc2e75ffa70f9c523fe8/src/hooks/use-mouse-interaction.ts#L20)
+Defined in: [src/hooks/use-mouse-interaction.ts:20](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/97ab9f0ae2e42171aa40996aacad796786af9976/src/hooks/use-mouse-interaction.ts#L20)
 
 A custom hook to handle mouse interactions (hover and click) with objects in a Three.js scene.
 

@@ -8,4 +8,4 @@
 
 > `const` **SidebarTrigger**: `ForwardRefExoticComponent`\<`Omit`\<[`ButtonProps`](../../button/interfaces/ButtonProps.md) & `RefAttributes`\<`HTMLButtonElement`\>, `"ref"`\> & `RefAttributes`\<`HTMLButtonElement`\>\>
 
-Defined in: [src/components/ui/sidebar.tsx:292](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/7cc56be20ce03492e7afbc2e75ffa70f9c523fe8/src/components/ui/sidebar.tsx#L292)
+Defined in: [src/components/ui/sidebar.tsx:292](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/97ab9f0ae2e42171aa40996aacad796786af9976/src/components/ui/sidebar.tsx#L292)

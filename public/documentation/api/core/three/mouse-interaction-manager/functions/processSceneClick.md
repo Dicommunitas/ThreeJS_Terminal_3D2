@@ -8,7 +8,7 @@
 
 > **processSceneClick**(`event`, `mountRefCurrent`, `camera`, `equipmentMeshes`, `onSelectEquipmentCallback`): `void`
 
-Defined in: [src/core/three/mouse-interaction-manager.ts:34](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/7cc56be20ce03492e7afbc2e75ffa70f9c523fe8/src/core/three/mouse-interaction-manager.ts#L34)
+Defined in: [src/core/three/mouse-interaction-manager.ts:34](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/97ab9f0ae2e42171aa40996aacad796786af9976/src/core/three/mouse-interaction-manager.ts#L34)
 
 Processa um evento de clique do mouse na cena para selecionar equipamento.
 Realiza raycasting para identificar o equipamento clicado e chama o callback `onSelectEquipmentCallback`.

@@ -8,7 +8,7 @@
 
 > **AlertDialogFooter**(`__namedParameters`): `Element`
 
-Defined in: [src/components/ui/alert-dialog.tsx:62](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/7cc56be20ce03492e7afbc2e75ffa70f9c523fe8/src/components/ui/alert-dialog.tsx#L62)
+Defined in: [src/components/ui/alert-dialog.tsx:62](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/97ab9f0ae2e42171aa40996aacad796786af9976/src/components/ui/alert-dialog.tsx#L62)
 
 ## Parameters
 
