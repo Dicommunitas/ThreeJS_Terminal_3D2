@@ -1,15 +1,39 @@
-<!-- public/documentation/_sidebar.md -->
+- **Principal**
+  - [Início](README.md)
+  - [Arquitetura](architecture.md)
 
-* [Início](README.md)
-* [Arquitetura](architecture.md)
-
----
-
-* **API TypeDoc**
-  * [Visão Geral](api/README.md)
-  * [Módulos](api/modules.md)
-  <!-- Adicione links diretos para módulos específicos se desejar, ex: -->
-  <!-- * [Tipos (types.ts)](api/modules/lib_types.md) -->
-  <!-- * [Componente Page (page.tsx)](api/modules/app_page.md) -->
-  <!-- * [Componente ThreeScene (three-scene.tsx)](api/modules/components_three_scene.md) -->
-
+- **Documentação da API**
+  - [Visão Geral da API](api/README.md)
+  - [Módulos](api/modules.md)
+  - Componentes
+    - [AnnotationDialog](api/components/annotation_dialog.md)
+    - [CameraControlsPanel](api/components/camera_controls_panel.md)
+    - [ColorModeSelector](api/components/color_mode_selector.md)
+    - [InfoPanel](api/components/info_panel.md)
+    - [LayerManager](api/components/layer_manager.md)
+    - [MainSceneArea](api/components/main_scene_area.md)
+    - [SidebarContentLayout](api/components/sidebar_content_layout.md)
+    - [ThreeScene](api/components/three_scene.md)
+  - Core
+    - Graphics
+      - [ColorUtils](api/core/graphics/color_utils.md)
+    - Logic
+      - [EquipmentFilter](api/core/logic/equipment_filter.md)
+    - Three
+      - [CameraUtils](api/core/three/camera_utils.md)
+      - [EquipmentGeometryFactory](api/core/three/equipment_geometry_factory.md)
+      - [LabelRendererUtils](api/core/three/label_renderer_utils.md)
+      - [MouseInteractionManager](api/core/three/mouse_interaction_manager.md)
+      - [PostProcessingUtils](api/core/three/postprocessing_utils.md)
+      - [SceneElementsSetup](api/core/three/scene_elements_setup.md)
+  - Hooks
+    - [useAnnotationManager](api/hooks/use_annotation_manager.md)
+    - [useCameraManager](api/hooks/use_camera_manager.md)
+    - [useCommandHistory](api/hooks/use_command_history.md)
+    - [useEquipmentDataManager](api/hooks/use_equipment_data_manager.md)
+    - [useEquipmentSelectionManager](api/hooks/use_equipment_selection_manager.md)
+    - [useFilterManager](api/hooks/use_filter_manager.md)
+    - [useLayerManager](api/hooks/use_layer_manager.md)
+    - [useSceneOutline](api/hooks/use_scene_outline.md)
+  - Lib
+    - [Types](api/lib/types.md)
