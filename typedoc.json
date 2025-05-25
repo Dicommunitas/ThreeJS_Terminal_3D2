@@ -1,6 +1,6 @@
 {
   "$schema": "https://typedoc.org/schema.json",
-  "entryPoints": ["./src/app/page.tsx", "./src/components/three-scene.tsx"],
+  "entryPoints": ["./src/*"],
   "entryPointStrategy": "expand",
   "out": "public/documentation/api",
   "plugin": [
