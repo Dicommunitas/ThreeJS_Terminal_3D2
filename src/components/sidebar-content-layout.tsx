@@ -79,7 +79,7 @@ export function SidebarContentLayout({
   // console.log("[SidebarContentLayout.tsx] Rendering with props:", { searchTerm, selectedSistema, availableSistemas, selectedArea, availableAreas, colorMode, layers, cameraViewSystems });
   return (
     <ScrollArea className="h-full flex-1">
-      <div className="p-4 space-y-6 pb-6">
+      <div className="p-4 space-y-6 pb-6 overflow-x-hidden"> {/* Adicionado overflow-x-hidden aqui */}
         <CameraControlsPanel systems={cameraViewSystems} onSetView={onFocusAndSelectSystem} />
 
         <Card className="shadow-md">
