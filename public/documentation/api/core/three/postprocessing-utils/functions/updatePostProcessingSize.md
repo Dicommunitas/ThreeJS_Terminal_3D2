@@ -8,7 +8,7 @@
 
 > **updatePostProcessingSize**(`composer`, `outlinePass`, `width`, `height`): `void`
 
-Defined in: [src/core/three/postprocessing-utils.ts:96](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/52232744018ed621d550262a267cac5a8cb3ae25/src/core/three/postprocessing-utils.ts#L96)
+Defined in: [src/core/three/postprocessing-utils.ts:96](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/50ef787d9f23a1c5f4362ca495ac1334ca854f4f/src/core/three/postprocessing-utils.ts#L96)
 
 Atualiza o tamanho do EffectComposer e do OutlinePass.
 Deve ser chamado quando o contêiner de renderização é redimensionado.
