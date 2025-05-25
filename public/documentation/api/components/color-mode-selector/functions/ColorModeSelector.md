@@ -8,7 +8,7 @@
 
 > **ColorModeSelector**(`props`): `Element`
 
-Defined in: [src/components/color-mode-selector.tsx:32](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/2d6118765ed06f96efcb299ae199b08c708400c9/src/components/color-mode-selector.tsx#L32)
+Defined in: [src/components/color-mode-selector.tsx:32](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/52232744018ed621d550262a267cac5a8cb3ae25/src/components/color-mode-selector.tsx#L32)
 
 Renderiza um Card com um dropdown para selecionar o modo de colorização dos equipamentos.
 As opções são "Equipamento (Cor Base)", "Estado Operacional" e "Produto".

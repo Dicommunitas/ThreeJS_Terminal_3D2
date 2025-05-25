@@ -8,4 +8,4 @@
 
 > `const` **SidebarContent**: `ForwardRefExoticComponent`\<`Omit`\<`DetailedHTMLProps`\<`HTMLAttributes`\<`HTMLDivElement`\>, `HTMLDivElement`\>, `"ref"`\> & `RefAttributes`\<`HTMLDivElement`\>\>
 
-Defined in: [src/components/ui/sidebar.tsx:435](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/2d6118765ed06f96efcb299ae199b08c708400c9/src/components/ui/sidebar.tsx#L435)
+Defined in: [src/components/ui/sidebar.tsx:435](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/52232744018ed621d550262a267cac5a8cb3ae25/src/components/ui/sidebar.tsx#L435)

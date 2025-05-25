@@ -8,7 +8,7 @@
 
 > **CommandHistoryPanel**(`__namedParameters`): `Element`
 
-Defined in: [src/components/command-history-panel.tsx:14](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/2d6118765ed06f96efcb299ae199b08c708400c9/src/components/command-history-panel.tsx#L14)
+Defined in: [src/components/command-history-panel.tsx:14](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/52232744018ed621d550262a267cac5a8cb3ae25/src/components/command-history-panel.tsx#L14)
 
 ## Parameters
 

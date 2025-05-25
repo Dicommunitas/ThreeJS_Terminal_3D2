@@ -8,7 +8,7 @@
 
 > **useEquipmentDataManager**(): [`UseEquipmentDataManagerReturn`](../interfaces/UseEquipmentDataManagerReturn.md)
 
-Defined in: [src/hooks/use-equipment-data-manager.ts:31](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/2d6118765ed06f96efcb299ae199b08c708400c9/src/hooks/use-equipment-data-manager.ts#L31)
+Defined in: [src/hooks/use-equipment-data-manager.ts:31](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/52232744018ed621d550262a267cac5a8cb3ae25/src/hooks/use-equipment-data-manager.ts#L31)
 
 Hook customizado para gerenciar os dados dos equipamentos (a "fonte da verdade" dos equipamentos).
 Inicializa os dados com `initialEquipment` e fornece funções para modificar

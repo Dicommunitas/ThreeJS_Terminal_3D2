@@ -6,7 +6,7 @@
 
 # Interface: UseLayerManagerProps
 
-Defined in: [src/hooks/use-layer-manager.ts:28](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/2d6118765ed06f96efcb299ae199b08c708400c9/src/hooks/use-layer-manager.ts#L28)
+Defined in: [src/hooks/use-layer-manager.ts:28](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/52232744018ed621d550262a267cac5a8cb3ae25/src/hooks/use-layer-manager.ts#L28)
 
 Props para o hook useLayerManager.
  UseLayerManagerProps
@@ -17,7 +17,7 @@ Props para o hook useLayerManager.
 
 > **executeCommand**: (`command`) => `void`
 
-Defined in: [src/hooks/use-layer-manager.ts:29](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/2d6118765ed06f96efcb299ae199b08c708400c9/src/hooks/use-layer-manager.ts#L29)
+Defined in: [src/hooks/use-layer-manager.ts:29](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/52232744018ed621d550262a267cac5a8cb3ae25/src/hooks/use-layer-manager.ts#L29)
 
 Função para executar comandos e adicioná-los ao histórico.
 
@@ -25,7 +25,7 @@ Função para executar comandos e adicioná-los ao histórico.
 
 ##### command
 
-[`Command`](../../../lib/types/interfaces/Command.md)
+`Command`
 
 #### Returns
 

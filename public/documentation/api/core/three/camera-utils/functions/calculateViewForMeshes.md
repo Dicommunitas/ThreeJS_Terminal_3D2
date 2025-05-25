@@ -8,7 +8,7 @@
 
 > **calculateViewForMeshes**(`meshes`, `camera`): `null` \| \{ `lookAt`: `Vector3`; `position`: `Vector3`; \}
 
-Defined in: [src/core/three/camera-utils.ts:24](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/2d6118765ed06f96efcb299ae199b08c708400c9/src/core/three/camera-utils.ts#L24)
+Defined in: [src/core/three/camera-utils.ts:24](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/52232744018ed621d550262a267cac5a8cb3ae25/src/core/three/camera-utils.ts#L24)
 
 Calcula uma posição e um ponto de observação (lookAt) para a câmera
 de forma a enquadrar um conjunto de meshes fornecidos.

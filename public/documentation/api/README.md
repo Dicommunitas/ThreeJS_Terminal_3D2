@@ -6,8 +6,6 @@
 
 ## Modules
 
-- [ai/dev](ai/dev/README.md)
-- [ai/genkit](ai/genkit/README.md)
 - [app/layout](app/layout/README.md)
 - [app/page](app/page/README.md)
 - [components/annotation-dialog](components/annotation-dialog/README.md)
@@ -75,5 +73,3 @@
 - [hooks/use-scene-outline](hooks/use-scene-outline/README.md)
 - [hooks/use-scene-setup](hooks/use-scene-setup/README.md)
 - [hooks/use-toast](hooks/use-toast/README.md)
-- [lib/types](lib/types/README.md)
-- [lib/utils](lib/utils/README.md)
