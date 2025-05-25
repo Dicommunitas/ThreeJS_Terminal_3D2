@@ -6,7 +6,7 @@
 
 # Interface: BadgeProps
 
-Defined in: [src/components/ui/badge.tsx:26](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/50ef787d9f23a1c5f4362ca495ac1334ca854f4f/src/components/ui/badge.tsx#L26)
+Defined in: [src/components/ui/badge.tsx:26](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/3ee0fc36a3337518d3717231e10fb625cedcf942/src/components/ui/badge.tsx#L26)
 
 ## Extends
 
@@ -3607,7 +3607,7 @@ Defined in: node\_modules/@types/react/index.d.ts:2958
 
 > `optional` **variant**: `null` \| `"secondary"` \| `"destructive"` \| `"default"` \| `"outline"`
 
-Defined in: [src/components/ui/badge.tsx:10](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/50ef787d9f23a1c5f4362ca495ac1334ca854f4f/src/components/ui/badge.tsx#L10)
+Defined in: [src/components/ui/badge.tsx:10](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/3ee0fc36a3337518d3717231e10fb625cedcf942/src/components/ui/badge.tsx#L10)
 
 #### Inherited from
 

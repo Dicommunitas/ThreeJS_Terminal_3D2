@@ -8,7 +8,7 @@
 
 > **InfoPanel**(`props`): `null` \| `Element`
 
-Defined in: [src/components/info-panel.tsx:49](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/50ef787d9f23a1c5f4362ca495ac1334ca854f4f/src/components/info-panel.tsx#L49)
+Defined in: [src/components/info-panel.tsx:49](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/3ee0fc36a3337518d3717231e10fb625cedcf942/src/components/info-panel.tsx#L49)
 
 Renderiza um painel flutuante com informações detalhadas sobre o equipamento selecionado.
 Mostra detalhes apenas se um único equipamento estiver selecionado.

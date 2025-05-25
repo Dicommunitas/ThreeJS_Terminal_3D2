@@ -8,7 +8,7 @@
 
 > **useSidebar**(): `SidebarContext`
 
-Defined in: [src/components/ui/sidebar.tsx:42](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/50ef787d9f23a1c5f4362ca495ac1334ca854f4f/src/components/ui/sidebar.tsx#L42)
+Defined in: [src/components/ui/sidebar.tsx:42](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/3ee0fc36a3337518d3717231e10fb625cedcf942/src/components/ui/sidebar.tsx#L42)
 
 ## Returns
 
