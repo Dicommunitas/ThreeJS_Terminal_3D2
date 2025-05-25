@@ -164,16 +164,15 @@ export function SidebarContentLayout({
         <Separator />
         <Button
           variant="link"
-          className="w-full justify-start text-sidebar-foreground/80 hover:text-sidebar-foreground"
+          className="w-full justify-start text-sidebar-foreground/80 hover:text-sidebar-foreground whitespace-normal h-auto py-2"
           asChild
         >
           <a href="https://github.com/Dicommunitas/ThreeJS_Terminal_3D2" target="_blank" rel="noopener noreferrer">
-            <BookOpenIcon className="mr-2 h-4 w-4" />
-            Ver Documentação no GitHub
+            <BookOpenIcon className="mr-2 h-4 w-4 flex-shrink-0" />
+            <span className="flex-grow">Ver Documentação no GitHub</span>
           </a>
         </Button>
       </div>
     </ScrollArea>
   );
 }
-
