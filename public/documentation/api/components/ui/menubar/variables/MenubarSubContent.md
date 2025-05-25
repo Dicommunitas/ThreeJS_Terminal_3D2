@@ -8,4 +8,4 @@
 
 > `const` **MenubarSubContent**: `ForwardRefExoticComponent`\<`Omit`\<`MenubarSubContentProps` & `RefAttributes`\<`HTMLDivElement`\>, `"ref"`\> & `RefAttributes`\<`HTMLDivElement`\>\>
 
-Defined in: [src/components/ui/menubar.tsx:90](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/97ab9f0ae2e42171aa40996aacad796786af9976/src/components/ui/menubar.tsx#L90)
+Defined in: [src/components/ui/menubar.tsx:90](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/894502f47f0ff64fee1a1aeae66790ab4080c55e/src/components/ui/menubar.tsx#L90)

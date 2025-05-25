@@ -76,6 +76,7 @@ export function SidebarContentLayout({
   cameraViewSystems,
   onFocusAndSelectSystem,
 }: SidebarContentLayoutProps): JSX.Element {
+  // console.log("[SidebarContentLayout.tsx] Rendering with props:", { searchTerm, selectedSistema, availableSistemas, selectedArea, availableAreas, colorMode, layers, cameraViewSystems });
   return (
     <ScrollArea className="h-full flex-1">
       <div className="p-4 space-y-6 pb-6">
@@ -166,13 +167,12 @@ export function SidebarContentLayout({
           className="w-full justify-start text-sidebar-foreground/80 hover:text-sidebar-foreground"
           asChild
         >
-          <a href="/documentation/architecture.md" target="_blank" rel="noopener noreferrer">
+          <a href="https://github.com/seu-usuario/seu-repositorio" target="_blank" rel="noopener noreferrer">
             <BookOpenIcon className="mr-2 h-4 w-4" />
-            Ver Documentação
+            Ver Documentação no GitHub
           </a>
         </Button>
       </div>
     </ScrollArea>
   );
 }
-
