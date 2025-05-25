@@ -1,18 +1,26 @@
 
 /**
  * Gerencia interações do mouse (clique e movimento) dentro da cena Three.js
- * para seleção e hover de equipamentos.
+ * para seleção e hover de equipamentos. Utiliza raycasting para identificar
+ * os objetos 3D intersectados pelo ponteiro do mouse.
  *
  * Responsabilidades:
- * - Processar eventos de clique do mouse para detectar seleção de equipamentos (single e multi-select).
- * - Processar eventos de movimento do mouse para detectar equipamentos sob o cursor (hover).
- * - Utilizar raycasting para identificar os objetos 3D intersectados pelo ponteiro do mouse.
- * - Invocar callbacks fornecidos (`onSelectEquipment` e `setHoveredEquipmentTag`) para notificar
- *   o componente `ThreeScene` (ou outro chamador) sobre as interações detectadas.
+ * - Processar eventos de clique do mouse (`processSceneClick`):
+ *   - Calcula as coordenadas normalizadas do mouse.
+ *   - Realiza raycasting a partir da câmera através do ponteiro do mouse.
+ *   - Identifica o primeiro objeto `Equipment` intersectado que seja visível.
+ *   - Invoca um callback (`onSelectEquipmentCallback`) com a tag do equipamento selecionado
+ *     (ou null se nenhum foi clicado) e um booleano indicando se um modificador
+ *     de seleção múltipla (Ctrl/Cmd) foi pressionado.
  *
- * Exporta:
- * - `processSceneClick`: Função para processar cliques na cena e determinar seleção.
- * - `processSceneMouseMove`: Função para processar movimentos do mouse na cena e determinar hover.
+ * - Processar eventos de movimento do mouse (`processSceneMouseMove`):
+ *   - Similar ao clique, calcula coordenadas e realiza raycasting.
+ *   - Identifica o primeiro objeto `Equipment` intersectado que seja visível.
+ *   - Invoca um callback (`setHoveredEquipmentTagCallback`) com a tag do equipamento
+ *     sob o cursor (ou null se nenhum).
+ *
+ * Este módulo ajuda a desacoplar a lógica de detecção de interação do mouse
+ * do componente principal da cena (`ThreeScene.tsx`).
  */
 import * as THREE from 'three';
 
@@ -27,9 +35,10 @@ const mouse = new THREE.Vector2();
  * @param {MouseEvent} event O evento de clique do mouse.
  * @param {HTMLDivElement} mountRefCurrent O elemento DOM atual onde a cena está montada.
  * @param {THREE.PerspectiveCamera} camera A câmera de perspectiva da cena.
- * @param {THREE.Object3D[]} equipmentMeshes Array de meshes 3D representando os equipamentos visíveis.
+ * @param {THREE.Object3D[]} equipmentMeshes Array de meshes 3D representando os equipamentos visíveis na cena.
  * @param {(tag: string | null, isMultiSelect: boolean) => void} onSelectEquipmentCallback Callback a ser chamado
- *        com a tag do equipamento selecionado (ou null) e um booleano para seleção múltipla.
+ *        com a tag do equipamento selecionado (ou null se o clique foi em espaço vazio ou objeto não identificável)
+ *        e um booleano indicando se a tecla Ctrl/Cmd (para seleção múltipla) estava pressionada.
  */
 export function processSceneClick(
   event: MouseEvent,
@@ -47,7 +56,7 @@ export function processSceneClick(
   mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
 
   raycaster.setFromCamera(mouse, camera);
-  const intersects = raycaster.intersectObjects(equipmentMeshes.filter(m => m.visible), true);
+  const intersects = raycaster.intersectObjects(equipmentMeshes.filter(m => m.visible), true); // Considera apenas meshes visíveis
 
   const isMultiSelectModifierPressed = event.ctrlKey || event.metaKey;
   let tagToSelect: string | null = null;
@@ -76,8 +85,9 @@ export function processSceneClick(
  * @param {MouseEvent} event O evento de movimento do mouse.
  * @param {HTMLDivElement} mountRefCurrent O elemento DOM atual onde a cena está montada.
  * @param {THREE.PerspectiveCamera} camera A câmera de perspectiva da cena.
- * @param {THREE.Object3D[]} equipmentMeshes Array de meshes 3D representando os equipamentos visíveis.
+ * @param {THREE.Object3D[]} equipmentMeshes Array de meshes 3D representando os equipamentos visíveis na cena.
  * @param {(tag: string | null) => void} setHoveredEquipmentTagCallback Callback para definir a tag do equipamento em hover.
+ *        Chamado com a tag do equipamento ou null se nenhum equipamento estiver sob o cursor.
  */
 export function processSceneMouseMove(
   event: MouseEvent,
@@ -95,7 +105,7 @@ export function processSceneMouseMove(
   mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
 
   raycaster.setFromCamera(mouse, camera);
-  const intersects = raycaster.intersectObjects(equipmentMeshes.filter(m => m.visible), true);
+  const intersects = raycaster.intersectObjects(equipmentMeshes.filter(m => m.visible), true); // Considera apenas meshes visíveis
 
   let foundHoverTag: string | null = null;
   if (intersects.length > 0) {
@@ -114,5 +124,3 @@ export function processSceneMouseMove(
     setHoveredEquipmentTagCallback(foundHoverTag);
   }
 }
-
-

@@ -1,18 +1,19 @@
 
 /**
  * Utilitários para configurar elementos básicos e gerenciar meshes de equipamentos em uma cena Three.js.
+ * Este módulo encapsula a lógica de baixo nível para a criação e atualização de componentes
+ * fundamentais da cena 3D.
  *
  * Responsabilidades:
- * - Configurar a iluminação da cena (`setupLighting`).
- * - Configurar o plano de chão/terreno (`setupGroundPlane`).
- * - Configurar o pipeline de renderização, incluindo WebGLRenderer, CSS2DRenderer, EffectComposer e OutlinePass (`setupRenderPipeline`).
- * - Atualizar dinamicamente os meshes dos equipamentos na cena com base nos dados de entrada e na visibilidade das camadas (`updateEquipmentMeshesInScene`).
- *
- * Exporta:
- * - `setupLighting`: Para adicionar luzes padrão à cena.
- * - `setupGroundPlane`: Para adicionar um plano de chão à cena.
- * - `setupRenderPipeline`: Para inicializar os renderizadores e o pipeline de pós-processamento.
- * - `updateEquipmentMeshesInScene`: Para sincronizar os objetos 3D dos equipamentos com os dados da aplicação.
+ * - Configurar a iluminação da cena (`setupLighting`): Adiciona luz ambiente, hemisférica e direcional.
+ * - Configurar o plano de chão/terreno (`setupGroundPlane`): Cria e adiciona um plano base à cena.
+ * - Configurar o pipeline de renderização (`setupRenderPipeline`): Inicializa o `WebGLRenderer`,
+ *   `CSS2DRenderer` (para rótulos), `EffectComposer` e `OutlinePass` (para efeitos de contorno).
+ * - Atualizar dinamicamente os meshes dos equipamentos na cena (`updateEquipmentMeshesInScene`):
+ *   Sincroniza os objetos 3D dos equipamentos com os dados da aplicação, considerando a visibilidade
+ *   das camadas e o modo de colorização. Isso inclui adicionar novos meshes, remover antigos e
+ *   recriar meshes existentes quando necessário (e.g., mudança de cor).
+ *   Também gerencia a visibilidade do plano de chão com base na camada "Terrain".
  */
 import * as THREE from 'three';
 import { CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRenderer.js'; 
@@ -23,7 +24,8 @@ import type { Equipment, Layer, ColorMode } from '@/lib/types';
 
 /**
  * Configura a iluminação padrão para a cena.
- * Adiciona uma AmbientLight, HemisphereLight e DirectionalLight.
+ * Adiciona uma AmbientLight para iluminação geral, uma HemisphereLight para simular luz do céu e do chão,
+ * e uma DirectionalLight para simular luz solar com sombras (atualmente desabilitadas por performance).
  * @param {THREE.Scene} scene A instância da cena Three.js onde as luzes serão adicionadas.
  */
 export function setupLighting(scene: THREE.Scene): void {
@@ -31,7 +33,7 @@ export function setupLighting(scene: THREE.Scene): void {
   scene.add(ambientLight);
   // console.log("[SceneElementsSetup.ts setupLighting] AmbientLight added.");
 
-  const hemisphereLight = new THREE.HemisphereLight(0xADD8E6, 0x495436, 0.8);
+  const hemisphereLight = new THREE.HemisphereLight(0xADD8E6, 0x495436, 0.8); // Céu azul claro, chão tom de terra
   scene.add(hemisphereLight);
   // console.log("[SceneElementsSetup.ts setupLighting] HemisphereLight added.");
 
@@ -45,6 +47,7 @@ export function setupLighting(scene: THREE.Scene): void {
 /**
  * Configura o plano de chão (terreno) para a cena.
  * Cria um `THREE.Mesh` com `PlaneGeometry` e `MeshStandardMaterial`.
+ * O plano é posicionado em Y=0 e rotacionado para ficar horizontal.
  * @param {THREE.Scene} scene A instância da cena Three.js onde o plano será adicionado.
  * @returns {THREE.Mesh} O mesh do plano de chão criado.
  */
@@ -55,8 +58,8 @@ export function setupGroundPlane(scene: THREE.Scene): THREE.Mesh {
     side: THREE.DoubleSide,
     metalness: 0.1,
     roughness: 0.8,
-    transparent: false,
-    opacity: 1.0,
+    transparent: false, // Modificado na depuração
+    opacity: 1.0,     // Modificado na depuração
   });
   const groundMesh = new THREE.Mesh(groundGeometry, groundMaterial);
   groundMesh.rotation.x = -Math.PI / 2;
@@ -104,7 +107,7 @@ export function setupRenderPipeline(
   renderer.setSize(initialWidth, initialHeight);
   renderer.shadowMap.enabled = false; // Sombras desabilitadas para performance
   scene.background = new THREE.Color(0xA9C1D1); // Cor de fundo azulada/cinza claro
-  scene.fog = new THREE.Fog(0xA9C1D1, 200, 1000); 
+  scene.fog = new THREE.Fog(0xA9C1D1, 200, 1000); // Ajustado na depuração: Fog(cor, início, fim)
   // console.log("[SceneElementsSetup.ts setupRenderPipeline] WebGLRenderer created.");
 
 
@@ -114,7 +117,7 @@ export function setupRenderPipeline(
   labelRenderer.domElement.style.position = 'absolute';
   labelRenderer.domElement.style.top = '0px';
   labelRenderer.domElement.style.left = '0px';
-  labelRenderer.domElement.style.pointerEvents = 'none';
+  labelRenderer.domElement.style.pointerEvents = 'none'; // Rótulos não devem interceptar eventos de mouse da cena 3D
   // console.log("[SceneElementsSetup.ts setupRenderPipeline] CSS2DRenderer created.");
 
   // EffectComposer e Passes para Pós-Processamento
@@ -127,8 +130,8 @@ export function setupRenderPipeline(
   outlinePass.edgeGlow = 0.0;
   outlinePass.edgeThickness = 1.0;
   outlinePass.visibleEdgeColor.set('#ffffff'); // Cor padrão, será sobrescrita por useSceneOutline
-  outlinePass.hiddenEdgeColor.set('#190a05');
-  outlinePass.pulsePeriod = 0;
+  outlinePass.hiddenEdgeColor.set('#190a05'); // Cor para bordas que estariam ocultas
+  outlinePass.pulsePeriod = 0; // Sem pulsação por padrão
   composer.addPass(outlinePass);
   // console.log("[SceneElementsSetup.ts setupRenderPipeline] EffectComposer with RenderPass and OutlinePass created.");
 
@@ -147,9 +150,9 @@ export function setupRenderPipeline(
  * Interface para os parâmetros da função `updateEquipmentMeshesInScene`.
  * @interface UpdateEquipmentMeshesParams
  * @property {THREE.Scene} scene - A cena Three.js.
- * @property {React.MutableRefObject<THREE.Object3D[]>} equipmentMeshesRef - Ref para o array de meshes de equipamentos existentes.
+ * @property {React.MutableRefObject<THREE.Object3D[]>} equipmentMeshesRef - Ref para o array de meshes de equipamentos existentes na cena.
  * @property {Equipment[]} newEquipmentData - A nova lista de equipamentos a serem renderizados (já filtrada).
- * @property {Layer[]} layers - A lista de camadas para determinar a visibilidade por tipo.
+ * @property {Layer[]} layers - A lista de camadas para determinar a visibilidade por tipo de equipamento e do terreno.
  * @property {ColorMode} colorMode - O modo de colorização atual para os equipamentos.
  * @property {(item: Equipment) => THREE.Object3D} createSingleEquipmentMesh - Função callback para criar um mesh de equipamento individual.
  * @property {React.MutableRefObject<THREE.Mesh | null>} groundMeshRef - Ref para o mesh do plano de chão, para controle de visibilidade.
@@ -168,6 +171,8 @@ interface UpdateEquipmentMeshesParams {
  * Atualiza a lista de meshes de equipamentos na cena com base nos novos dados.
  * Remove meshes antigos, atualiza existentes (recriando-os para garantir consistência de material/cor)
  * e adiciona novos, considerando a visibilidade das camadas. Também gerencia a visibilidade do plano de chão.
+ * Esta função é otimizada para recriar meshes apenas quando necessário, mas a lógica atual recria
+ * para simplificar a atualização de cor e outras propriedades visuais baseadas em `colorMode` ou dados do equipamento.
  *
  * @param {UpdateEquipmentMeshesParams} params - Os parâmetros para a função.
  */
@@ -277,5 +282,3 @@ export function updateEquipmentMeshesInScene({
     groundMeshRef.current.visible = groundShouldBeVisible;
   }
 }
-
-

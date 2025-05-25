@@ -1,8 +1,15 @@
 
 /**
  * Componente para renderizar o conteúdo principal da sidebar.
- * Inclui os controles de filtro (busca por texto, sistema, área), o seletor de modo de coloração,
- * o gerenciador de camadas de visibilidade, os controles de câmera ("Focus on System") e um link para a documentação.
+ * Este componente é responsável por exibir os diversos painéis de controle e filtros
+ * dentro da área de conteúdo da sidebar.
+ *
+ * Inclui:
+ * - Controles de câmera ("Focus on System").
+ * - Filtros de busca textual e seleção por Sistema/Área.
+ * - Seletor de modo de colorização.
+ * - Gerenciador de camadas de visibilidade.
+ * - Link para a documentação externa do projeto.
  */
 "use client";
 
@@ -79,7 +86,7 @@ export function SidebarContentLayout({
   // console.log("[SidebarContentLayout.tsx] Rendering with props:", { searchTerm, selectedSistema, availableSistemas, selectedArea, availableAreas, colorMode, layers, cameraViewSystems });
   return (
     <ScrollArea className="h-full flex-1">
-      <div className="p-4 space-y-6 pb-6 overflow-x-hidden"> {/* Adicionado overflow-x-hidden aqui */}
+      <div className="p-4 space-y-6 pb-6 overflow-x-hidden">
         <CameraControlsPanel systems={cameraViewSystems} onSetView={onFocusAndSelectSystem} />
 
         <Card className="shadow-md">

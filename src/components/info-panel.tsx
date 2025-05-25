@@ -1,8 +1,32 @@
 
 /**
  * Componente para exibir o painel de informações detalhadas de um equipamento selecionado.
- * Permite visualizar atributos, alterar estado operacional, produto e gerenciar anotações.
- * Renderiza apenas se um único equipamento estiver selecionado.
+ * Renderiza apenas se um único equipamento estiver selecionado na cena 3D.
+ *
+ * Responsabilidades:
+ * - Exibir os atributos do equipamento (nome, TAG, tipo, sistema, área, detalhes).
+ * - Permitir a alteração do estado operacional do equipamento através de um dropdown.
+ * - Permitir a alteração do produto associado ao equipamento através de um dropdown.
+ * - Gerenciar a exibição e interação com anotações:
+ *   - Exibir o texto e a data da anotação existente.
+ *   - Fornecer botões para adicionar, editar ou excluir a anotação.
+ * - Fornecer um botão para fechar o painel de informações (desselecionando o equipamento).
+ *
+ * ```mermaid
+ * classDiagram
+ *   InfoPanelProps <|-- InfoPanel
+ *   InfoPanelProps : +equipment: Equipment | null
+ *   InfoPanelProps : +annotation: Annotation | null
+ *   InfoPanelProps : +onClose: () -> void
+ *   InfoPanelProps : +onOpenAnnotationDialog: () -> void
+ *   InfoPanelProps : +onDeleteAnnotation: (equipmentTag: string) -> void
+ *   InfoPanelProps : +onOperationalStateChange: (equipmentTag: string, newState: string) -> void
+ *   InfoPanelProps : +availableOperationalStatesList: string[]
+ *   InfoPanelProps : +onProductChange: (equipmentTag: string, newProduct: string) -> void
+ *   InfoPanelProps : +availableProductsList: string[]
+ *   InfoPanel ..> Equipment : uses
+ *   InfoPanel ..> Annotation : uses
+ * ```
  */
 "use client";
 
@@ -17,32 +41,32 @@ import { format, parseISO } from 'date-fns';
 
 /**
  * Props para o componente InfoPanel.
- * @interface InfoPanelProps
- * @property {Equipment | null} equipment - O equipamento selecionado para exibir detalhes.
- * @property {Annotation | null} annotation - A anotação associada ao equipamento selecionado.
- * @property {() => void} onClose - Callback para fechar o painel de informações.
- * @property {() => void} onOpenAnnotationDialog - Callback para abrir o diálogo de anotação.
- * @property {(equipmentTag: string) => void} onDeleteAnnotation - Callback para excluir a anotação do equipamento.
- * @property {(equipmentTag: string, newState: string) => void} onOperationalStateChange - Callback para alterar o estado operacional.
- * @property {string[]} availableOperationalStatesList - Lista de estados operacionais disponíveis para seleção.
- * @property {(equipmentTag: string, newProduct: string) => void} onProductChange - Callback para alterar o produto.
- * @property {string[]} availableProductsList - Lista de produtos disponíveis para seleção.
  */
 interface InfoPanelProps {
+  /** O equipamento selecionado para exibir detalhes. Null se nenhum equipamento único estiver selecionado. */
   equipment: Equipment | null;
+  /** A anotação associada ao equipamento selecionado. Null se não houver anotação. */
   annotation: Annotation | null;
+  /** Callback para fechar o painel de informações (geralmente deseleciona o equipamento). */
   onClose: () => void;
+  /** Callback para abrir o diálogo de adição/edição de anotação. */
   onOpenAnnotationDialog: () => void;
+  /** Callback para excluir a anotação do equipamento especificado. */
   onDeleteAnnotation: (equipmentTag: string) => void;
+  /** Callback para alterar o estado operacional de um equipamento. */
   onOperationalStateChange: (equipmentTag: string, newState: string) => void;
+  /** Lista de estados operacionais disponíveis para seleção no dropdown. */
   availableOperationalStatesList: string[];
+  /** Callback para alterar o produto de um equipamento. */
   onProductChange: (equipmentTag: string, newProduct: string) => void;
+  /** Lista de produtos disponíveis para seleção no dropdown. */
   availableProductsList: string[];
 }
 
 /**
  * Renderiza um painel flutuante com informações detalhadas sobre o equipamento selecionado.
- * Mostra detalhes apenas se um único equipamento estiver selecionado.
+ * Mostra detalhes apenas se um único equipamento estiver selecionado. Permite interações
+ * como alterar estado operacional, produto e gerenciar anotações.
  * @param {InfoPanelProps} props As props do componente.
  * @returns {JSX.Element | null} O componente InfoPanel ou null se nenhum equipamento único estiver selecionado.
  */
@@ -69,7 +93,7 @@ export function InfoPanel({
   };
 
   /**
-   * Formata a data de criação/modificação da anotação.
+   * Formata a data de criação/modificação da anotação para exibição.
    * @type {string | null}
    */
   const formattedDate = annotation?.createdAt ? format(parseISO(annotation.createdAt), "dd/MM/yyyy HH:mm") : null;
@@ -193,5 +217,3 @@ export function InfoPanel({
     </Card>
   );
 }
-
-    

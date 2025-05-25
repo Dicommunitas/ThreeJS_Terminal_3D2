@@ -1,11 +1,26 @@
 
 /**
- * Componente principal da página da aplicação Terminal 3D.
- * Orquestra os diversos hooks de gerenciamento de estado (comandos, dados de equipamentos,
- * câmera, filtros, anotações, seleção, camadas) e renderiza a interface do usuário principal,
- * que inclui a área da cena 3D (`MainSceneArea`) e a barra lateral de controles (`Sidebar`).
- * Também gerencia estados locais da UI, como o modo de colorização, e calcula dados derivados
- * para popular os componentes da interface.
+ * @fileOverview Componente principal da página da aplicação Terminal 3D.
+ * Responsável por orquestrar os diversos hooks de gerenciamento de estado da aplicação
+ * e renderizar a interface do usuário principal, que inclui a área da cena 3D (`MainSceneArea`)
+ * e a barra lateral de controles (`Sidebar`). Este componente atua como o ponto central de
+ * integração para as funcionalidades da aplicação.
+ *
+ * Principais Responsabilidades:
+ * - Inicializar e fornecer os hooks de estado para:
+ *   - Histórico de Comandos (`useCommandHistory`): Para funcionalidades de Undo/Redo.
+ *   - Dados dos Equipamentos (`useEquipmentDataManager`): Gerencia a "fonte da verdade" dos dados dos equipamentos.
+ *   - Câmera 3D (`useCameraManager`): Controla o estado da câmera, incluindo presets e foco em sistemas.
+ *   - Filtros (`useFilterManager`): Gerencia os estados e a lógica de filtragem dos equipamentos.
+ *   - Anotações (`useAnnotationManager`): Lida com o estado e as operações CRUD para anotações.
+ *   - Seleção de Equipamentos (`useEquipmentSelectionManager`): Gerencia a seleção e hover de equipamentos.
+ *   - Camadas de Visibilidade (`useLayerManager`): Controla a visibilidade das camadas de objetos na cena.
+ * - Gerenciar estados locais da UI, como o modo de colorização (`colorMode`).
+ * - Calcular dados derivados (e.g., `selectedEquipmentDetails`, listas de opções para filtros) para popular
+ *   os componentes da interface.
+ * - Renderizar a estrutura principal da UI, incluindo a `Sidebar` e a `MainSceneArea`.
+ * - Passar os estados e callbacks apropriados dos hooks para os componentes filhos.
+ * - Definir lógicas de alto nível que coordenam múltiplos hooks (e.g., `handleFocusAndSelectSystem`).
  */
 "use client";
 
@@ -33,23 +48,7 @@ import { AnnotationDialog } from '@/components/annotation-dialog';
 /**
  * Componente principal da página Terminal 3D (Terminal3DPage).
  *
- * Orquestra os diversos hooks de gerenciamento de estado da aplicação:
- * - `useCommandHistory`: Para funcionalidades de Undo/Redo.
- * - `useEquipmentDataManager`: Gerencia a "fonte da verdade" dos dados dos equipamentos e suas modificações diretas (estado operacional, produto).
- * - `useCameraManager`: Controla o estado da câmera 3D, incluindo presets e foco em sistemas.
- * - `useFilterManager`: Gerencia os estados e a lógica de filtragem dos equipamentos (busca por texto, sistema, área).
- * - `useAnnotationManager`: Lida com o estado e as operações CRUD para anotações dos equipamentos.
- * - `useEquipmentSelectionManager`: Gerencia a seleção de equipamentos (single, multi) e o estado de hover.
- * - `useLayerManager`: Controla o estado de visibilidade das diferentes camadas de objetos na cena.
- *
- * Também gerencia estados locais como `colorMode` para a colorização da cena.
- *
- * Responsável por:
- * - Renderizar a estrutura principal da UI, incluindo a `Sidebar` e a `MainSceneArea`.
- * - Passar os estados e callbacks apropriados dos hooks para os componentes filhos.
- * - Definir lógicas de alto nível que coordenam múltiplos hooks (e.g., `handleFocusAndSelectSystem`).
- * - Calcular dados derivados (e.g., `selectedEquipmentDetails`, listas de opções para filtros) usando `useMemo`.
- *
+ * Orquestra os diversos hooks de gerenciamento de estado da aplicação e renderiza a UI principal.
  * @returns {JSX.Element} O componente da página Terminal 3D.
  */
 export default function Terminal3DPage(): JSX.Element {
@@ -198,7 +197,7 @@ export default function Terminal3DPage(): JSX.Element {
   return (
     <SidebarProvider defaultOpen={false}>
       {/* Wrapper para MainSceneArea e SidebarTrigger */}
-      <div className="h-screen flex-1 flex flex-col relative min-w-0 overflow-x-hidden"> {/* Adicionado overflow-x-hidden */}
+      <div className="h-screen flex-1 flex flex-col relative min-w-0 overflow-x-hidden">
         <MainSceneArea
           equipment={filteredEquipment}
           layers={layers}
@@ -282,4 +281,3 @@ export default function Terminal3DPage(): JSX.Element {
     </SidebarProvider>
   );
 }
-

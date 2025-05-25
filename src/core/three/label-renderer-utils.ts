@@ -4,16 +4,19 @@
  * sobrepostos à cena Three.js utilizando `CSS2DRenderer` e `CSS2DObject`.
  *
  * Responsabilidades:
- * - Fornecer uma função para atualizar o tamanho do `CSS2DRenderer` (`updateLabelRendererSize`).
- * - Gerenciar a criação, atualização e remoção dos pins de anotação (`CSS2DObject`) na cena,
- *   com base nos dados de anotações, posições dos equipamentos e visibilidade das camadas (`updateAnnotationPins`).
+ * - `updateLabelRendererSize`: Fornece uma função para atualizar o tamanho do `CSS2DRenderer`,
+ *   essencial quando o contêiner da cena é redimensionado.
+ * - `updateAnnotationPins`: Gerencia a criação, atualização e remoção dos pins de anotação (`CSS2DObject`)
+ *   na cena. Esta função:
+ *   - Limpa os pins existentes.
+ *   - Verifica se a camada de anotações está visível.
+ *   - Para cada anotação, encontra o equipamento correspondente.
+ *   - Cria um elemento HTML (um ícone SVG) para o pin.
+ *   - Posiciona o pin acima do equipamento associado.
+ *   - Adiciona o pin à cena e ao `labelRenderer`.
  *
- * Nota: A configuração inicial do `CSS2DRenderer` e sua anexação ao DOM são agora tratadas
+ * Nota: A configuração inicial do `CSS2DRenderer` e sua anexação ao DOM são tratadas
  *       em `setupRenderPipeline` no arquivo `scene-elements-setup.ts`.
- *
- * Exporta:
- * - `updateLabelRendererSize`: Para ajustar o tamanho do renderer de rótulos.
- * - `updateAnnotationPins`: Para sincronizar os pins de anotação com os dados da aplicação.
  */
 import * as THREE from 'three';
 import { CSS2DRenderer, CSS2DObject } from 'three/examples/jsm/renderers/CSS2DRenderer.js';
@@ -22,7 +25,8 @@ import type { Annotation, Equipment, Layer } from '@/lib/types';
 
 /**
  * Atualiza o tamanho do CSS2DRenderer.
- * Deve ser chamado quando o contêiner de renderização da cena é redimensionado.
+ * Deve ser chamado quando o contêiner de renderização da cena é redimensionado
+ * para garantir que os rótulos sejam dimensionados e posicionados corretamente.
  * @param {CSS2DRenderer | null} labelRenderer A instância do CSS2DRenderer a ser atualizada.
  * @param {number} width A nova largura para o renderizador de rótulos.
  * @param {number} height A nova altura para o renderizador de rótulos.
@@ -40,12 +44,12 @@ export function updateLabelRendererSize(
 /**
  * Parâmetros para a função `updateAnnotationPins`.
  * @interface UpdateAnnotationPinsParams
- * @property {THREE.Scene | null} scene A cena Three.js.
- * @property {CSS2DRenderer | null} labelRenderer O renderizador CSS2D.
- * @property {Annotation[]} annotations A lista de anotações.
- * @property {Equipment[]} equipmentData A lista completa de equipamentos (para encontrar posições e dimensões).
- * @property {Layer[]} layers A lista de camadas (para verificar visibilidade da camada de anotações).
- * @property {React.MutableRefObject<CSS2DObject[]>} existingPinsRef Ref para o array de objetos CSS2DObject existentes (pins).
+ * @property {THREE.Scene | null} scene A cena Three.js onde os pins serão adicionados/removidos.
+ * @property {CSS2DRenderer | null} labelRenderer O renderizador CSS2D responsável por exibir os pins.
+ * @property {Annotation[]} annotations A lista atual de todas as anotações.
+ * @property {Equipment[]} equipmentData A lista completa de equipamentos, usada para encontrar posições e dimensões dos alvos das anotações.
+ * @property {Layer[]} layers A lista de camadas, usada para verificar a visibilidade da camada de "Annotations".
+ * @property {React.MutableRefObject<CSS2DObject[]>} existingPinsRef Ref para o array de objetos CSS2DObject (pins) atualmente na cena.
  */
 interface UpdateAnnotationPinsParams {
   scene: THREE.Scene | null;
@@ -60,6 +64,7 @@ interface UpdateAnnotationPinsParams {
  * Atualiza os pins de anotação visíveis na cena 3D.
  * Remove pins antigos e cria/atualiza novos com base nos dados atuais e na visibilidade da camada de anotações.
  * Cada pin é um ícone SVG amarelo posicionado acima do equipamento correspondente.
+ * O `labelRenderer.domElement.style.display` é ajustado com base na visibilidade da camada de anotações.
  * @param {UpdateAnnotationPinsParams} params Parâmetros para atualizar os pins.
  */
 export function updateAnnotationPins({
@@ -84,8 +89,9 @@ export function updateAnnotationPins({
   existingPinsRef.current = []; 
 
   const annotationsLayer = layers.find(l => l.id === 'layer-annotations');
-  const areAnnotationsVisibleByLayer = annotationsLayer?.isVisible ?? true;
+  const areAnnotationsVisibleByLayer = annotationsLayer?.isVisible ?? true; // Assume visível se a camada não for encontrada (improvável)
 
+  // Controla a visibilidade de todos os pins de uma vez pelo display do renderer
   labelRenderer.domElement.style.display = areAnnotationsVisibleByLayer ? '' : 'none';
 
   if (areAnnotationsVisibleByLayer) {
@@ -93,24 +99,29 @@ export function updateAnnotationPins({
       const equipmentForItem = equipmentData.find(e => e.tag === anno.equipmentTag);
       if (equipmentForItem) {
         const pinDiv = document.createElement('div');
+        // Ícone de pin SVG amarelo com sombra
         pinDiv.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#FFD700" style="opacity: 0.9; filter: drop-shadow(0 1px 1px rgba(0,0,0,0.5));"><path d="M12 2C8.13 2 5 5.13 5 9c0 4.17 4.42 9.92 6.24 12.11.4.48 1.13.48 1.53 0C14.58 18.92 19 13.17 19 9c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 0 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>`;
-        pinDiv.style.pointerEvents = 'none'; 
+        pinDiv.style.pointerEvents = 'none'; // Pins não devem interceptar eventos do mouse
         pinDiv.style.width = '24px';
         pinDiv.style.height = '24px';
 
         const pinLabel = new CSS2DObject(pinDiv);
 
+        // Calcula o deslocamento Y para posicionar o pin acima do equipamento
         let yOffset = 0;
         const defaultSize = { width: 1, height: 1, depth: 1 }; 
         const itemSize = equipmentForItem.size || defaultSize;
+        // Usa 'height' se for um cilindro/tubo (Tank, Pipe, Crane), senão 'size.height'
         const itemHeight = equipmentForItem.height !== undefined ? equipmentForItem.height : itemSize.height;
 
+        // Lógica de deslocamento Y específica para cada tipo de equipamento
         if (equipmentForItem.type === 'Tank' || equipmentForItem.type === 'Pipe' || equipmentForItem.type === 'Crane') {
-          yOffset = (itemHeight || 0) / 2 + 0.8; 
+          yOffset = (itemHeight || 0) / 2 + 0.8; // Metade da altura + um pouco acima
         } else if (equipmentForItem.type === 'Valve' || equipmentForItem.type === 'Building' ) {
-            yOffset = (itemSize.height || equipmentForItem.radius || 0.3) /2 + 0.8;
+            // Para Válvulas (esferas) ou Prédios (caixas)
+            yOffset = (itemSize.height || equipmentForItem.radius || 0.3) /2 + 0.8; // Metade da altura/raio + um pouco acima
         } else {
-           yOffset = (itemSize.height || 0.5) + 0.8;
+           yOffset = (itemSize.height || 0.5) + 0.8; // Padrão: altura + um pouco acima
         }
         pinLabel.position.set(equipmentForItem.position.x, equipmentForItem.position.y + yOffset, equipmentForItem.position.z);
 
@@ -120,5 +131,3 @@ export function updateAnnotationPins({
     });
   }
 }
-
-

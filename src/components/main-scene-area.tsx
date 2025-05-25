@@ -1,8 +1,12 @@
 
 /**
- * Componente responsável por renderizar a área principal da cena 3D,
- * que inclui o componente `ThreeScene` (a própria cena 3D) e o `InfoPanel` (painel de detalhes).
- * Este componente atua como um contêiner para os elementos visuais centrais da aplicação.
+ * Componente responsável por renderizar a área principal da cena 3D.
+ * Atua como um contêiner para os elementos visuais centrais da aplicação:
+ * - O componente `ThreeScene` (a própria cena 3D).
+ * - O `InfoPanel` (painel de detalhes do equipamento selecionado).
+ *
+ * Este componente não possui lógica complexa própria, mas sim delega a renderização
+ * e o comportamento para seus filhos, passando as props necessárias.
  */
 "use client";
 
@@ -12,6 +16,8 @@ import { InfoPanel } from '@/components/info-panel';
 
 /**
  * Props para o componente MainSceneArea.
+ * Estas props são, em grande parte, repassadas para `ThreeScene` e `InfoPanel`.
+ *
  * @interface MainSceneAreaProps
  * @property {Equipment[]} equipment - Lista de equipamentos filtrados a serem renderizados na cena.
  * @property {Layer[]} layers - Configuração das camadas de visibilidade.
@@ -123,5 +129,3 @@ export function MainSceneArea({
     </div>
   );
 }
-
-    

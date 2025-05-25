@@ -1,14 +1,14 @@
 
 /**
- * @fileoverview Componente de diálogo modal para adicionar ou editar anotações textuais
+ * Componente de diálogo modal para adicionar ou editar anotações textuais
  * associadas a um equipamento. Utiliza um Textarea para permitir anotações de texto longo.
  *
  * ```mermaid
  * classDiagram
  *   AnnotationDialogProps <|-- AnnotationDialog
  *   AnnotationDialogProps : +isOpen: boolean
- *   AnnotationDialogProps : +onOpenChange: (isOpen: boolean) => void
- *   AnnotationDialogProps : +onConfirm: (text: string) => void
+ *   AnnotationDialogProps : +onOpenChange: (isOpen: boolean) -> void
+ *   AnnotationDialogProps : +onConfirm: (text: string) -> void
  *   AnnotationDialogProps : +currentAnnotation: Annotation | null
  *   AnnotationDialogProps : +equipmentName: string
  *   AnnotationDialog ..> Annotation : uses (via currentAnnotation)
@@ -57,6 +57,7 @@ interface AnnotationDialogProps {
 /**
  * Renderiza um diálogo modal para o usuário inserir ou editar o texto de uma anotação.
  * Exibe o nome do equipamento associado e um Textarea para o texto da anotação.
+ * A data de criação/modificação é registrada automaticamente pelo hook `useAnnotationManager`.
  * @param {AnnotationDialogProps} props As props do componente.
  * @returns {JSX.Element} O componente AnnotationDialog.
  */
@@ -78,7 +79,7 @@ export function AnnotationDialog({ isOpen, onOpenChange, onConfirm, currentAnnot
    */
   const handleConfirm = () => {
     onConfirm(annotationText);
-    onOpenChange(false);
+    onOpenChange(false); // Fecha o diálogo após confirmar
   };
 
   return (

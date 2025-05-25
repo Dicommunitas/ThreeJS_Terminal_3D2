@@ -1,13 +1,16 @@
 
 /**
  * Componente React principal para renderizar e interagir com a cena 3D usando Three.js.
- * Este componente atua como o orquestrador central para a visualização 3D, sendo responsável por:
+ * Este componente atua como o orquestrador central para a visualização 3D.
  *
+ * Responsabilidades Detalhadas:
  * - **Configuração Inicial da Cena:**
  *   - Criação da cena Three.js (`THREE.Scene`), câmera (`THREE.PerspectiveCamera`).
- *   - Configuração dos renderizadores: `WebGLRenderer` para a cena principal, `CSS2DRenderer` para rótulos HTML.
- *   - Configuração do pipeline de pós-processamento com `EffectComposer`, incluindo `RenderPass` e `OutlinePass`.
- *   - (Delegação para `scene-elements-setup.ts` para: `setupRenderPipeline`, `setupLighting`, `setupGroundPlane`).
+ *   - Delegação para `scene-elements-setup.ts` para configurar:
+ *     - Renderizadores: `WebGLRenderer` para a cena principal, `CSS2DRenderer` para rótulos HTML.
+ *     - Pipeline de pós-processamento com `EffectComposer`, incluindo `RenderPass` e `OutlinePass`.
+ *     - Iluminação da cena.
+ *     - Plano de chão/terreno.
  *
  * - **Gerenciamento de Elementos da Cena:**
  *   - Criação de geometrias e materiais para equipamentos individuais (função interna `createSingleEquipmentMesh`).
@@ -16,7 +19,7 @@
  *   - Exibição e atualização de pins de anotação (`CSS2DObject`), delegando para `updateAnnotationPins` de `label-renderer-utils.ts`.
  *
  * - **Interação e Controles:**
- *   - Configuração e atualização dos `OrbitControls` para navegação do usuário.
+ *   - Configuração e atualização dos `OrbitControls` para navegação do usuário (importados dinamicamente).
  *   - Processamento de interações do mouse (clique para seleção, movimento para hover) delegando para
  *     `processSceneClick` e `processSceneMouseMove` de `mouse-interaction-manager.ts`.
  *   - Aplicação de efeitos visuais de contorno (OutlinePass) para seleção e hover, utilizando o hook `useSceneOutline`
@@ -31,9 +34,6 @@
  *   - Manutenção do estado `isSceneReady` para sincronizar operações dependentes da prontidão da cena.
  *   - Manipulação do redimensionamento da janela/contêiner para atualizar câmera e renderizadores.
  *   - Limpeza de recursos Three.js (geometrias, materiais, renderizadores, ouvintes de eventos) na desmontagem do componente.
- *
- * Este componente é crucial para a funcionalidade de visualização 3D e integra diversos módulos e hooks
- * para manter a organização e separação de responsabilidades.
  */
 "use client";
 
@@ -172,8 +172,10 @@ const ThreeScene: React.FC<ThreeSceneProps> = (props) => {
       roughness: 0.6,
     });
 
-    material.transparent = false; 
+    // Ajustado na etapa de depuração anterior
+    material.transparent = false;
     material.opacity = 1.0;
+
 
     // console.log(`[ThreeScene.tsx createSingleEquipmentMesh] Item: ${item.tag}, Type: ${item.type}, OpState: ${item.operationalState}, Color: #${finalColor.getHexString()}, Opacity: ${material.opacity}, Transparent: ${material.transparent}, Visible: true`);
 
@@ -281,7 +283,7 @@ const ThreeScene: React.FC<ThreeSceneProps> = (props) => {
             
             currentControls.mouseButtons = {
                 LEFT: THREE.MOUSE.ROTATE,
-                MIDDLE: THREE.MOUSE.ROTATE,
+                MIDDLE: THREE.MOUSE.ROTATE, // Mapeia o botão do meio para rotação também (ou THREE.MOUSE.DOLLY se preferir zoom)
                 RIGHT: THREE.MOUSE.PAN
             };
 
@@ -291,7 +293,7 @@ const ThreeScene: React.FC<ThreeSceneProps> = (props) => {
             currentControls.addEventListener('end', handleControlsChangeEnd);
 
         } else if (!OrbitControls) {
-            console.error("[ThreeScene.tsx Setup] OrbitControls module did not load correctly.");
+            // console.error("[ThreeScene.tsx Setup] OrbitControls module did not load correctly.");
         }
     }).catch(err => console.error("[ThreeScene.tsx Setup] Error loading OrbitControls", err));
 
@@ -570,5 +572,3 @@ const ThreeScene: React.FC<ThreeSceneProps> = (props) => {
 };
 
 export default ThreeScene;
-
-
