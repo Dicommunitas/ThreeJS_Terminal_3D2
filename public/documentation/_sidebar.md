@@ -1,39 +1,36 @@
-- **Principal**
+- **Geral**
   - [Início](README.md)
   - [Arquitetura](architecture.md)
 
-- **Documentação da API**
-  - [Visão Geral da API](api/README.md)
+- **API TypeDoc**
+  - [Visão Geral da API](api/README.md) 
   - [Módulos](api/modules.md)
-  - Componentes
-    - [AnnotationDialog](api/components/annotation_dialog.md)
-    - [CameraControlsPanel](api/components/camera_controls_panel.md)
-    - [ColorModeSelector](api/components/color_mode_selector.md)
-    - [InfoPanel](api/components/info_panel.md)
-    - [LayerManager](api/components/layer_manager.md)
-    - [MainSceneArea](api/components/main_scene_area.md)
-    - [SidebarContentLayout](api/components/sidebar_content_layout.md)
+  - **Componentes Principais**
+    - [Página Principal (page.tsx)](api/components/app_page.md)
     - [ThreeScene](api/components/three_scene.md)
-  - Core
-    - Graphics
-      - [ColorUtils](api/core/graphics/color_utils.md)
-    - Logic
-      - [EquipmentFilter](api/core/logic/equipment_filter.md)
-    - Three
-      - [CameraUtils](api/core/three/camera_utils.md)
-      - [EquipmentGeometryFactory](api/core/three/equipment_geometry_factory.md)
-      - [LabelRendererUtils](api/core/three/label_renderer_utils.md)
-      - [MouseInteractionManager](api/core/three/mouse_interaction_manager.md)
-      - [PostProcessingUtils](api/core/three/postprocessing_utils.md)
-      - [SceneElementsSetup](api/core/three/scene_elements_setup.md)
-  - Hooks
-    - [useAnnotationManager](api/hooks/use_annotation_manager.md)
-    - [useCameraManager](api/hooks/use_camera_manager.md)
-    - [useCommandHistory](api/hooks/use_command_history.md)
-    - [useEquipmentDataManager](api/hooks/use_equipment_data_manager.md)
-    - [useEquipmentSelectionManager](api/hooks/use_equipment_selection_manager.md)
-    - [useFilterManager](api/hooks/use_filter_manager.md)
-    - [useLayerManager](api/hooks/use_layer_manager.md)
-    - [useSceneOutline](api/hooks/use_scene_outline.md)
-  - Lib
-    - [Types](api/lib/types.md)
+    - [AnnotationDialog](api/components/annotation_dialog.md)
+    - [InfoPanel](api/components/info_panel.md)
+    - [MainSceneArea](api/components/main_scene_area.md)
+  - **Core (Lógica e Utilitários)**
+    - [Tipos Globais](api/lib_types.md)
+    - _Graphics_
+      - [ColorUtils](api/core_graphics_color_utils.md)
+    - _Logic_
+      - [EquipmentFilter](api/core_logic_equipment_filter.md)
+    - _Three Utils_
+      - [CameraUtils](api/core_three_camera_utils.md)
+      - [EquipmentGeometryFactory](api/core_three_equipment_geometry_factory.md)
+      - [LabelRendererUtils](api/core_three_label_renderer_utils.md)
+      - [MouseInteractionManager](api/core_three_mouse_interaction_manager.md)
+      - [PostprocessingUtils](api/core_three_postprocessing_utils.md)
+      - [SceneElementsSetup](api/core_three_scene_elements_setup.md)
+  - **Hooks**
+    - [useAnnotationManager](api/hooks_use_annotation_manager.md)
+    - [useCameraManager](api/hooks_use_camera_manager.md)
+    - [useCommandHistory](api/hooks_use_command_history.md)
+    - [useEquipmentDataManager](api/hooks_use_equipment_data_manager.md)
+    - [useEquipmentSelectionManager](api/hooks_use_equipment_selection_manager.md)
+    - [useFilterManager](api/hooks_use_filter_manager.md)
+    - [useLayerManager](api/hooks_use_layer_manager.md)
+    - [useSceneOutline](api/hooks_use_scene_outline.md)
+    - [useAnimationLoop](api/hooks_use_animation_loop.md)

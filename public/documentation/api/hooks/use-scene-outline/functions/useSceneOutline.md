@@ -8,7 +8,7 @@
 
 > **useSceneOutline**(`props`): `void`
 
-Defined in: [src/hooks/use-scene-outline.ts:37](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/3ee0fc36a3337518d3717231e10fb625cedcf942/src/hooks/use-scene-outline.ts#L37)
+Defined in: [src/hooks/use-scene-outline.ts:37](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/7cc56be20ce03492e7afbc2e75ffa70f9c523fe8/src/hooks/use-scene-outline.ts#L37)
 
 Hook customizado para gerenciar e aplicar o efeito de contorno (OutlinePass)
 aos equipamentos selecionados ou em hover na cena 3D.

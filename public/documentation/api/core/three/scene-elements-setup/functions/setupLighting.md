@@ -8,7 +8,7 @@
 
 > **setupLighting**(`scene`): `void`
 
-Defined in: [src/core/three/scene-elements-setup.ts:29](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/3ee0fc36a3337518d3717231e10fb625cedcf942/src/core/three/scene-elements-setup.ts#L29)
+Defined in: [src/core/three/scene-elements-setup.ts:29](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/7cc56be20ce03492e7afbc2e75ffa70f9c523fe8/src/core/three/scene-elements-setup.ts#L29)
 
 Configura a iluminação padrão para a cena.
 Adiciona uma AmbientLight, HemisphereLight e DirectionalLight.

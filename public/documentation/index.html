@@ -2,34 +2,70 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Documentação do Projeto</title>
+  <title>Documentação do Projeto Terminal 3D</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta name="description" content="Documentação do sistema Terminal 3D">
+  <meta name="description" content="Documentação técnica e da API do projeto Terminal 3D">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
-  <!-- <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify-darklight-theme@latest/dist/style.min.css" title="docsify-darklight-theme" type="text/css"/> -->
+  <!-- <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple.css"> -->
 </head>
 <body>
-  <div id="app">Carregando...</div>
+  <div id="app">Carregando documentação...</div>
   <script>
     window.$docsify = {
-      name: '3D Terminal System',
-      repo: '',
+      name: 'Terminal 3D - Documentação',
+      repo: '', // Link para o repositório GitHub, se houver
       loadSidebar: true, // Carrega _sidebar.md
-      // alias: { // Removido alias para _sidebar.md pois ele deve estar no mesmo diretório
-      //   '/.*/_sidebar.md': '/documentation/_sidebar.md'
+      subMaxLevel: 3, // Níveis de cabeçalho para gerar o sumário lateral
+      auto2top: true, // Rola para o topo ao mudar de página
+      homepage: 'README.md', // Arquivo da página inicial
+      basePath: '/documentation/', // Importante para servir de um subdiretório
+      relativePath: true, // Resolve caminhos relativos ao index.html
+      // routerMode: 'hash', // 'hash' é o padrão
+      // alias: {
+      //   '/.*/_sidebar.md': '/documentation/_sidebar.md' // Com basePath, isso pode não ser necessário
       // },
-      subMaxLevel: 3,
-      relativePath: true, // Importante para links relativos dentro de subdiretórios
-      // basePath: '/documentation/', // Removido para simplificar, já que index.html está em /documentation/
-      coverpage: false,
-      auto2top: true,
-      search: 'auto', // Habilita a busca
+      search: 'auto', // Habilita a busca (requer plugin)
       plugins: [
         function(hook, vm) {
           hook.beforeEach(function(html) {
-            // Lógica para Mermaid, se necessário
+            // Adiciona mermaid.js se um bloco mermaid for encontrado
+            if (html.indexOf('class="mermaid"') > -1 || html.indexOf('```mermaid') > -1) {
+              var script = document.createElement('script');
+              script.src = 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js';
+              script.onload = function() {
+                mermaid.initialize({ startOnLoad: false });
+                mermaid.run({
+                    nodes: document.querySelectorAll('.mermaid')
+                });
+              };
+              document.head.appendChild(script);
+
+              // Força a renderização após o carregamento do script e do conteúdo
+              // O Mermaid pode precisar de um pequeno atraso para renderizar corretamente após o conteúdo ser inserido pelo Docsify
+              setTimeout(() => {
+                if (window.mermaid) {
+                    mermaid.run({
+                        nodes: document.querySelectorAll('.mermaid')
+                    });
+                }
+              }, 100);
+            }
             return html;
+          });
+           hook.doneEach(function() {
+            // Tenta renderizar o mermaid novamente após cada página carregada,
+            // pois o `beforeEach` pode não pegar todos os casos dinâmicos.
+            if (window.mermaid) {
+                // console.log("Docsify doneEach: Rerunning mermaid");
+                try {
+                    mermaid.run({
+                        nodes: document.querySelectorAll('.mermaid')
+                    });
+                } catch (e) {
+                    // console.error("Mermaid run error on doneEach:", e);
+                }
+            }
           });
         }
       ]
@@ -37,12 +73,20 @@
   </script>
   <!-- Docsify v4 -->
   <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+  <!-- Plugins do Docsify -->
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
-  <!-- Docsify Mermaid plugin -->
-  <script src="//unpkg.com/mermaid/dist/mermaid.min.js"></script>
-  <script src="//unpkg.com/docsify-mermaid@latest/dist/docsify-mermaid.js"></script>
-  <script>mermaid.initialize({ startOnLoad: true });</script>
-  <!-- <script src="//cdn.jsdelivr.net/npm/docsify-darklight-theme@latest/dist/index.min.js" type="text/javascript"></script> -->
+  <script src="//cdn.jsdelivr.net/npm/docsify-copy-code"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-typescript.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-javascript.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-json.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>
+      // Inicializa o Mermaid globalmente uma vez
+      if (window.mermaid) {
+        // console.log("Mermaid global init");
+        mermaid.initialize({ startOnLoad: true, securityLevel: 'loose' });
+      }
+  </script>
 </body>
 </html>

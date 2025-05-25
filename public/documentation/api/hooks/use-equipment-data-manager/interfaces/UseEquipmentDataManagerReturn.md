@@ -6,7 +6,7 @@
 
 # Interface: UseEquipmentDataManagerReturn
 
-Defined in: [src/hooks/use-equipment-data-manager.ts:19](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/3ee0fc36a3337518d3717231e10fb625cedcf942/src/hooks/use-equipment-data-manager.ts#L19)
+Defined in: [src/hooks/use-equipment-data-manager.ts:19](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/7cc56be20ce03492e7afbc2e75ffa70f9c523fe8/src/hooks/use-equipment-data-manager.ts#L19)
 
 Retorno do hook useEquipmentDataManager.
  UseEquipmentDataManagerReturn
@@ -17,7 +17,7 @@ Retorno do hook useEquipmentDataManager.
 
 > **equipmentData**: `Equipment`[]
 
-Defined in: [src/hooks/use-equipment-data-manager.ts:20](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/3ee0fc36a3337518d3717231e10fb625cedcf942/src/hooks/use-equipment-data-manager.ts#L20)
+Defined in: [src/hooks/use-equipment-data-manager.ts:20](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/7cc56be20ce03492e7afbc2e75ffa70f9c523fe8/src/hooks/use-equipment-data-manager.ts#L20)
 
 A lista atual de todos os equipamentos.
 
@@ -27,7 +27,7 @@ A lista atual de todos os equipamentos.
 
 > **handleOperationalStateChange**: (`equipmentTag`, `newState`) => `void`
 
-Defined in: [src/hooks/use-equipment-data-manager.ts:21](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/3ee0fc36a3337518d3717231e10fb625cedcf942/src/hooks/use-equipment-data-manager.ts#L21)
+Defined in: [src/hooks/use-equipment-data-manager.ts:21](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/7cc56be20ce03492e7afbc2e75ffa70f9c523fe8/src/hooks/use-equipment-data-manager.ts#L21)
 
 Modifica o estado operacional de um equipamento.
 
@@ -51,7 +51,7 @@ Modifica o estado operacional de um equipamento.
 
 > **handleProductChange**: (`equipmentTag`, `newProduct`) => `void`
 
-Defined in: [src/hooks/use-equipment-data-manager.ts:22](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/3ee0fc36a3337518d3717231e10fb625cedcf942/src/hooks/use-equipment-data-manager.ts#L22)
+Defined in: [src/hooks/use-equipment-data-manager.ts:22](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/7cc56be20ce03492e7afbc2e75ffa70f9c523fe8/src/hooks/use-equipment-data-manager.ts#L22)
 
 Modifica o produto de um equipamento.
 

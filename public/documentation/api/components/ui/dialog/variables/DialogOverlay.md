@@ -8,4 +8,4 @@
 
 > `const` **DialogOverlay**: `ForwardRefExoticComponent`\<`Omit`\<`DialogOverlayProps` & `RefAttributes`\<`HTMLDivElement`\>, `"ref"`\> & `RefAttributes`\<`HTMLDivElement`\>\>
 
-Defined in: [src/components/ui/dialog.tsx:17](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/3ee0fc36a3337518d3717231e10fb625cedcf942/src/components/ui/dialog.tsx#L17)
+Defined in: [src/components/ui/dialog.tsx:17](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/7cc56be20ce03492e7afbc2e75ffa70f9c523fe8/src/components/ui/dialog.tsx#L17)
