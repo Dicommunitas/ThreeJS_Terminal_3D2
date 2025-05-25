@@ -1,6 +1,6 @@
 
 /**
- * @fileoverview Gerencia interações do mouse (clique e movimento) dentro da cena Three.js
+ * Gerencia interações do mouse (clique e movimento) dentro da cena Three.js
  * para seleção e hover de equipamentos.
  *
  * Responsabilidades:
@@ -114,4 +114,5 @@ export function processSceneMouseMove(
     setHoveredEquipmentTagCallback(foundHoverTag);
   }
 }
+
 

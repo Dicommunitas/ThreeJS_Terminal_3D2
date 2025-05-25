@@ -1,6 +1,6 @@
 
 /**
- * @fileOverview Componente para selecionar o modo de colorização dos equipamentos na cena 3D.
+ * Componente para selecionar o modo de colorização dos equipamentos na cena 3D.
  * Permite ao usuário escolher como os equipamentos serão coloridos (por cor base,
  * estado operacional ou produto) através de um menu dropdown.
  */

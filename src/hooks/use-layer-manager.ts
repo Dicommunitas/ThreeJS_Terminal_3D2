@@ -1,6 +1,6 @@
 
 /**
- * @fileOverview Custom hook para gerenciar o estado das camadas (layers) e a lógica para alternar sua visibilidade.
+ * Custom hook para gerenciar o estado das camadas (layers) e a lógica para alternar sua visibilidade.
  *
  * Responsabilidades:
  * - Manter o estado da lista de camadas (`layers`), incluindo nome, tipo de equipamento que controla e visibilidade.
@@ -84,4 +84,5 @@ export function useLayerManager({ executeCommand }: UseLayerManagerProps): UseLa
 
   return { layers, handleToggleLayer };
 }
+
 

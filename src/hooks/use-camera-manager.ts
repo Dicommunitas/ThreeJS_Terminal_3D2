@@ -1,6 +1,6 @@
 
 /**
- * @fileOverview Custom hook para gerenciar o estado e as interações da câmera 3D.
+ * Custom hook para gerenciar o estado e as interações da câmera 3D.
  *
  * Responsabilidades:
  * - Manter o estado atual da câmera (`currentCameraState`), incluindo posição e ponto de observação.
@@ -129,4 +129,5 @@ export function useCameraManager({ executeCommand }: UseCameraManagerProps): Use
     defaultInitialCameraLookAt,
   };
 }
+
 

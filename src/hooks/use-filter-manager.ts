@@ -1,6 +1,6 @@
 
 /**
- * @fileOverview Custom hook para gerenciar os estados de filtragem e a lógica de filtragem de equipamentos.
+ * Custom hook para gerenciar os estados de filtragem e a lógica de filtragem de equipamentos.
  *
  * Responsabilidades:
  * - Manter os estados para o termo de busca textual (`searchTerm`).
@@ -110,4 +110,5 @@ export function useFilterManager({ allEquipment }: UseFilterManagerProps): UseFi
     filteredEquipment,
   };
 }
+
 

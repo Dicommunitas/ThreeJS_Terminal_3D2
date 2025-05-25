@@ -1,6 +1,6 @@
 
 /**
- * @fileoverview Componente de painel para controles de câmera, especificamente para focar em sistemas.
+ * Componente de painel para controles de câmera, especificamente para focar em sistemas.
  * Renderiza botões para cada sistema disponível, permitindo ao usuário focar a câmera
  * e selecionar todos os equipamentos pertencentes àquele sistema.
  */

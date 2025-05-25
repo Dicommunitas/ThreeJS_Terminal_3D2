@@ -1,6 +1,6 @@
 
 /**
- * @fileOverview Custom hook responsible for fetching, storing, and managing the equipment data used in the application.
+ * Custom hook responsible for fetching, storing, and managing the equipment data used in the application.
  * This includes maintaining the state of the equipment list and providing functions to modify equipment properties.
  */
 

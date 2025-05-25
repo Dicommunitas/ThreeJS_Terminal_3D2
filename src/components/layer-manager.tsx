@@ -1,6 +1,6 @@
 
 /**
- * @fileOverview Componente para gerenciar a visibilidade das camadas de equipamentos e anotações.
+ * Componente para gerenciar a visibilidade das camadas de equipamentos e anotações.
  * Renderiza um card com checkboxes para cada camada, permitindo ao usuário controlar
  * o que é exibido na cena 3D.
  */

@@ -1,6 +1,6 @@
 
 /**
- * @fileoverview Componente de diálogo modal para adicionar ou editar anotações textuais
+ * Componente de diálogo modal para adicionar ou editar anotações textuais
  * associadas a um equipamento. Utiliza um Textarea para permitir anotações de texto longo.
  */
 "use client";

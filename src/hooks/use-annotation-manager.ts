@@ -1,6 +1,6 @@
 
 /**
- * @fileOverview Custom hook para gerenciar o estado e a lógica das anotações dos equipamentos.
+ * Custom hook para gerenciar o estado e a lógica das anotações dos equipamentos.
  *
  * Responsabilidades:
  * - Manter a lista de anotações (`Annotation[]`).
@@ -185,4 +185,5 @@ export function useAnnotationManager({ initialAnnotations = [], equipmentData }:
     getAnnotationForEquipment,
   };
 }
+
 

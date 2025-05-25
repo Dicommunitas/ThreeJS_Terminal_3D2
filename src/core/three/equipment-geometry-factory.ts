@@ -1,6 +1,6 @@
 
 /**
- * @fileOverview Fábrica para criar geometrias de equipamentos para a cena Three.js.
+ * Fábrica para criar geometrias de equipamentos para a cena Three.js.
  *
  * Responsabilidade Principal:
  * - Encapsular a lógica de criação de diferentes tipos de `THREE.BufferGeometry`
@@ -65,7 +65,7 @@ export function createGeometryForItem(item: Equipment): THREE.BufferGeometry {
       );
       break;
     default:
-      console.warn(`[GeometryFactory] Tipo de equipamento desconhecido: ${item.type}. Usando cubo padrão.`);
+      // console.warn(`[GeometryFactory] Tipo de equipamento desconhecido: ${item.type}. Usando cubo padrão.`);
       geometry = new THREE.BoxGeometry(1, 1, 1);
       break;
   }

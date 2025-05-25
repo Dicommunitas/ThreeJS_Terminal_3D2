@@ -1,6 +1,6 @@
 
 /**
- * @fileoverview Utilitários para determinar a cor dos equipamentos na cena 3D
+ * Utilitários para determinar a cor dos equipamentos na cena 3D
  * com base no modo de colorização selecionado e nos atributos do equipamento.
  *
  * Responsabilidades:
@@ -76,4 +76,5 @@ export function getEquipmentColor(item: Equipment, colorMode: ColorMode): THREE.
   // console.log(`[ColorUtils.ts getEquipmentColor] Item: ${item.tag}, ColorMode: ${colorMode}, BaseColor: #${baseColor.getHexString()}, FinalColor: #${finalColor.getHexString()}, OpState: ${item.operationalState}`);
   return finalColor;
 }
+
 

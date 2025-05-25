@@ -1,6 +1,6 @@
 
 /**
- * @fileoverview Componente responsável por renderizar a área principal da cena 3D,
+ * Componente responsável por renderizar a área principal da cena 3D,
  * que inclui o componente `ThreeScene` (a própria cena 3D) e o `InfoPanel` (painel de detalhes).
  * Este componente atua como um contêiner para os elementos visuais centrais da aplicação.
  */

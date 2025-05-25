@@ -1,6 +1,6 @@
 
 /**
- * @fileoverview Componente para renderizar o conteúdo principal da sidebar.
+ * Componente para renderizar o conteúdo principal da sidebar.
  * Inclui os controles de filtro (busca por texto, sistema, área), o seletor de modo de coloração,
  * o gerenciador de camadas de visibilidade, os controles de câmera ("Focus on System") e um link para a documentação.
  */
@@ -175,3 +175,4 @@ export function SidebarContentLayout({
     </ScrollArea>
   );
 }
+

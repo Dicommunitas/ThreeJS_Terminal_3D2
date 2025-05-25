@@ -1,6 +1,6 @@
 
 /**
- * @fileoverview Componente para exibir o painel de informações detalhadas de um equipamento selecionado.
+ * Componente para exibir o painel de informações detalhadas de um equipamento selecionado.
  * Permite visualizar atributos, alterar estado operacional, produto e gerenciar anotações.
  * Renderiza apenas se um único equipamento estiver selecionado.
  */

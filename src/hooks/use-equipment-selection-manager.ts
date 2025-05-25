@@ -1,6 +1,6 @@
 
 /**
- * @fileOverview Custom hook para gerenciar o estado e a lógica de seleção e hover de equipamentos.
+ * Custom hook para gerenciar o estado e a lógica de seleção e hover de equipamentos.
  *
  * Responsabilidades:
  * - Manter o estado dos equipamentos selecionados (`selectedEquipmentTags`).
@@ -198,4 +198,5 @@ export function useEquipmentSelectionManager({
     selectTagsBatch,
   };
 }
+
 

@@ -1,6 +1,6 @@
 
 /**
- * @fileOverview Utilitários para configurar elementos básicos e gerenciar meshes de equipamentos em uma cena Three.js.
+ * Utilitários para configurar elementos básicos e gerenciar meshes de equipamentos em uma cena Three.js.
  *
  * Responsabilidades:
  * - Configurar a iluminação da cena (`setupLighting`).
@@ -55,8 +55,8 @@ export function setupGroundPlane(scene: THREE.Scene): THREE.Mesh {
     side: THREE.DoubleSide,
     metalness: 0.1,
     roughness: 0.8,
-    transparent: false, // Modificado para opaco, conforme conversa anterior
-    opacity: 1.0,       // Modificado para opaco
+    transparent: false,
+    opacity: 1.0,
   });
   const groundMesh = new THREE.Mesh(groundGeometry, groundMaterial);
   groundMesh.rotation.x = -Math.PI / 2;
@@ -104,7 +104,7 @@ export function setupRenderPipeline(
   renderer.setSize(initialWidth, initialHeight);
   renderer.shadowMap.enabled = false; // Sombras desabilitadas para performance
   scene.background = new THREE.Color(0xA9C1D1); // Cor de fundo azulada/cinza claro
-  scene.fog = new THREE.Fog(0xA9C1D1, 200, 1000); // Névoa distante, conforme ajuste anterior
+  scene.fog = new THREE.Fog(0xA9C1D1, 200, 1000); 
   // console.log("[SceneElementsSetup.ts setupRenderPipeline] WebGLRenderer created.");
 
 
@@ -277,4 +277,5 @@ export function updateEquipmentMeshesInScene({
     groundMeshRef.current.visible = groundShouldBeVisible;
   }
 }
+
 

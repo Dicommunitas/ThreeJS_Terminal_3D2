@@ -1,6 +1,6 @@
 
 /**
- * @fileoverview Componente React principal para renderizar e interagir com a cena 3D usando Three.js.
+ * Componente React principal para renderizar e interagir com a cena 3D usando Three.js.
  * Este componente atua como o orquestrador central para a visualização 3D, sendo responsável por:
  *
  * - **Configuração Inicial da Cena:**
@@ -172,8 +172,7 @@ const ThreeScene: React.FC<ThreeSceneProps> = (props) => {
       roughness: 0.6,
     });
 
-    // Modificado para ser opaco por padrão, baseado na conversa anterior
-    material.transparent = false;
+    material.transparent = false; 
     material.opacity = 1.0;
 
     // console.log(`[ThreeScene.tsx createSingleEquipmentMesh] Item: ${item.tag}, Type: ${item.type}, OpState: ${item.operationalState}, Color: #${finalColor.getHexString()}, Opacity: ${material.opacity}, Transparent: ${material.transparent}, Visible: true`);
@@ -571,4 +570,5 @@ const ThreeScene: React.FC<ThreeSceneProps> = (props) => {
 };
 
 export default ThreeScene;
+
 

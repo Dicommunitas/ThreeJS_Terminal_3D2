@@ -1,6 +1,6 @@
 
 /**
- * @fileOverview Utilitários para gerenciar a exibição de rótulos HTML (pins de anotação)
+ * Utilitários para gerenciar a exibição de rótulos HTML (pins de anotação)
  * sobrepostos à cena Three.js utilizando `CSS2DRenderer` e `CSS2DObject`.
  *
  * Responsabilidades:
@@ -120,4 +120,5 @@ export function updateAnnotationPins({
     });
   }
 }
+
 

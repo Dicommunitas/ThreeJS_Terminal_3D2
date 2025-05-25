@@ -1,6 +1,6 @@
 
 /**
- * @fileOverview Custom hook para gerenciar o efeito de contorno (OutlinePass) na cena 3D.
+ * Custom hook para gerenciar o efeito de contorno (OutlinePass) na cena 3D.
  * Este hook é responsável por observar mudanças nos equipamentos selecionados e em hover,
  * e atualizar o OutlinePass para destacar os objetos apropriados.
  */
@@ -75,3 +75,4 @@ export function useSceneOutline({
     outlinePassRef,   // Similarmente
   ]);
 }
+

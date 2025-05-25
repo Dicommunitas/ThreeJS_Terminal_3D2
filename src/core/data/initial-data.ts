@@ -1,6 +1,6 @@
 
 /**
- * @fileOverview Fornece os dados iniciais para equipamentos e camadas da aplicação.
+ * Fornece os dados iniciais para equipamentos e camadas da aplicação.
  * Estes dados são usados para popular o estado inicial da aplicação quando ela é carregada.
  * Define a estrutura de cada equipamento e as camadas de visibilidade padrão.
  *

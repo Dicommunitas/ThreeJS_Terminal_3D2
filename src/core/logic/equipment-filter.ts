@@ -1,6 +1,6 @@
 
 /**
- * @fileoverview Utilitário para filtrar a lista de equipamentos com base em múltiplos critérios.
+ * Utilitário para filtrar a lista de equipamentos com base em múltiplos critérios.
  *
  * Responsabilidades:
  * - Definir a interface `EquipmentFilterCriteria` para os critérios de filtro.

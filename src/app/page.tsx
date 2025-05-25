@@ -1,6 +1,6 @@
 
 /**
- * @fileoverview Componente principal da página da aplicação Terminal 3D.
+ * Componente principal da página da aplicação Terminal 3D.
  * Orquestra os diversos hooks de gerenciamento de estado (comandos, dados de equipamentos,
  * câmera, filtros, anotações, seleção, camadas) e renderiza a interface do usuário principal,
  * que inclui a área da cena 3D (`MainSceneArea`) e a barra lateral de controles (`Sidebar`).

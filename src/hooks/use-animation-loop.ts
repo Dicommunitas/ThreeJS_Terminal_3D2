@@ -1,6 +1,6 @@
 
 /**
- * @fileOverview Custom hook para gerenciar o loop de animação de uma cena Three.js.
+ * Custom hook para gerenciar o loop de animação de uma cena Three.js.
  *
  * Responsabilidades:
  * - Encapsular a lógica de `requestAnimationFrame` para renderizar a cena continuamente.

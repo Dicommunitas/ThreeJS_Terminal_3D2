@@ -1,6 +1,6 @@
 
 /**
- * @fileOverview Utilitários para cálculos e manipulações relacionados à câmera em cenas Three.js.
+ * Utilitários para cálculos e manipulações relacionados à câmera em cenas Three.js.
  *
  * Responsabilidade Principal:
  * - Calcular a posição e o ponto de observação ideais da câmera para enquadrar um conjunto de objetos 3D.
