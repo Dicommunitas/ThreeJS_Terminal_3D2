@@ -6,9 +6,9 @@
 
 # Interface: UseLayerManagerProps
 
-Defined in: [src/hooks/use-layer-manager.ts:28](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/894502f47f0ff64fee1a1aeae66790ab4080c55e/src/hooks/use-layer-manager.ts#L28)
+Defined in: [src/hooks/use-layer-manager.ts:31](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/329dd5ef132dd57d615e45fca2699e6c6fa5c711/src/hooks/use-layer-manager.ts#L31)
 
-Props para o hook useLayerManager.
+Props para o hook `useLayerManager`.
  UseLayerManagerProps
 
 ## Properties
@@ -17,9 +17,11 @@ Props para o hook useLayerManager.
 
 > **executeCommand**: (`command`) => `void`
 
-Defined in: [src/hooks/use-layer-manager.ts:29](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/894502f47f0ff64fee1a1aeae66790ab4080c55e/src/hooks/use-layer-manager.ts#L29)
+Defined in: [src/hooks/use-layer-manager.ts:32](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/329dd5ef132dd57d615e45fca2699e6c6fa5c711/src/hooks/use-layer-manager.ts#L32)
 
-Função para executar comandos e adicioná-los ao histórico.
+Função para executar comandos
+                                                       (e.g., alternância de visibilidade de camada)
+                                                       e adicioná-los ao histórico de undo/redo.
 
 #### Parameters
 

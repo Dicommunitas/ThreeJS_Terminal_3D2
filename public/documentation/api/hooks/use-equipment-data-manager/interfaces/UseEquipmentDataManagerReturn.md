@@ -6,9 +6,9 @@
 
 # Interface: UseEquipmentDataManagerReturn
 
-Defined in: [src/hooks/use-equipment-data-manager.ts:19](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/894502f47f0ff64fee1a1aeae66790ab4080c55e/src/hooks/use-equipment-data-manager.ts#L19)
+Defined in: [src/hooks/use-equipment-data-manager.ts:38](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/329dd5ef132dd57d615e45fca2699e6c6fa5c711/src/hooks/use-equipment-data-manager.ts#L38)
 
-Retorno do hook useEquipmentDataManager.
+Retorno do hook `useEquipmentDataManager`.
  UseEquipmentDataManagerReturn
 
 ## Properties
@@ -17,9 +17,9 @@ Retorno do hook useEquipmentDataManager.
 
 > **equipmentData**: `Equipment`[]
 
-Defined in: [src/hooks/use-equipment-data-manager.ts:20](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/894502f47f0ff64fee1a1aeae66790ab4080c55e/src/hooks/use-equipment-data-manager.ts#L20)
+Defined in: [src/hooks/use-equipment-data-manager.ts:39](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/329dd5ef132dd57d615e45fca2699e6c6fa5c711/src/hooks/use-equipment-data-manager.ts#L39)
 
-A lista atual de todos os equipamentos.
+A lista atual de todos os equipamentos. Esta é a "fonte da verdade".
 
 ***
 
@@ -27,9 +27,11 @@ A lista atual de todos os equipamentos.
 
 > **handleOperationalStateChange**: (`equipmentTag`, `newState`) => `void`
 
-Defined in: [src/hooks/use-equipment-data-manager.ts:21](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/894502f47f0ff64fee1a1aeae66790ab4080c55e/src/hooks/use-equipment-data-manager.ts#L21)
+Defined in: [src/hooks/use-equipment-data-manager.ts:40](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/329dd5ef132dd57d615e45fca2699e6c6fa5c711/src/hooks/use-equipment-data-manager.ts#L40)
 
-Modifica o estado operacional de um equipamento.
+Função para modificar
+                                                                                             o estado operacional
+                                                                                             de um equipamento específico.
 
 #### Parameters
 
@@ -51,9 +53,10 @@ Modifica o estado operacional de um equipamento.
 
 > **handleProductChange**: (`equipmentTag`, `newProduct`) => `void`
 
-Defined in: [src/hooks/use-equipment-data-manager.ts:22](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/894502f47f0ff64fee1a1aeae66790ab4080c55e/src/hooks/use-equipment-data-manager.ts#L22)
+Defined in: [src/hooks/use-equipment-data-manager.ts:41](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/329dd5ef132dd57d615e45fca2699e6c6fa5c711/src/hooks/use-equipment-data-manager.ts#L41)
 
-Modifica o produto de um equipamento.
+Função para modificar o produto
+                                                                                      associado a um equipamento específico.
 
 #### Parameters
 

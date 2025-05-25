@@ -8,11 +8,12 @@
 
 > **useFilterManager**(`props`): [`UseFilterManagerReturn`](../interfaces/UseFilterManagerReturn.md)
 
-Defined in: [src/hooks/use-filter-manager.ts:65](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/894502f47f0ff64fee1a1aeae66790ab4080c55e/src/hooks/use-filter-manager.ts#L65)
+Defined in: [src/hooks/use-filter-manager.ts:70](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/329dd5ef132dd57d615e45fca2699e6c6fa5c711/src/hooks/use-filter-manager.ts#L70)
 
 Hook customizado para gerenciar a lógica de filtragem de equipamentos.
-Encapsula os estados dos filtros, as listas de opções de filtro disponíveis e a lista
-resultante de equipamentos filtrados.
+Encapsula os estados dos filtros (termo de busca, sistema, área),
+deriva as listas de opções de filtro disponíveis a partir dos dados dos equipamentos,
+e calcula a lista resultante de equipamentos filtrados.
 
 ## Parameters
 
@@ -20,10 +21,11 @@ resultante de equipamentos filtrados.
 
 `UseFilterManagerProps`
 
-As propriedades para o hook, incluindo `allEquipment`.
+As propriedades para o hook, incluindo `allEquipment` (a lista completa de equipamentos).
 
 ## Returns
 
 [`UseFilterManagerReturn`](../interfaces/UseFilterManagerReturn.md)
 
-O estado dos filtros, setters, opções de filtro e a lista filtrada.
+Um objeto contendo o estado dos filtros, as funções para atualizá-los,
+                                as listas de opções de filtro disponíveis e a lista de equipamentos filtrados.

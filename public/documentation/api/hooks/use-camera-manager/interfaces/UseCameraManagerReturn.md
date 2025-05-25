@@ -6,9 +6,9 @@
 
 # Interface: UseCameraManagerReturn
 
-Defined in: [src/hooks/use-camera-manager.ts:52](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/894502f47f0ff64fee1a1aeae66790ab4080c55e/src/hooks/use-camera-manager.ts#L52)
+Defined in: [src/hooks/use-camera-manager.ts:58](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/329dd5ef132dd57d615e45fca2699e6c6fa5c711/src/hooks/use-camera-manager.ts#L58)
 
-Retorno do hook useCameraManager.
+Retorno do hook `useCameraManager`.
  UseCameraManagerReturn
 
 ## Properties
@@ -17,9 +17,10 @@ Retorno do hook useCameraManager.
 
 > **currentCameraState**: `undefined` \| `CameraState`
 
-Defined in: [src/hooks/use-camera-manager.ts:53](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/894502f47f0ff64fee1a1aeae66790ab4080c55e/src/hooks/use-camera-manager.ts#L53)
+Defined in: [src/hooks/use-camera-manager.ts:59](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/329dd5ef132dd57d615e45fca2699e6c6fa5c711/src/hooks/use-camera-manager.ts#L59)
 
 O estado atual da câmera (posição e ponto de observação).
+                                                      Pode ser `undefined` antes da inicialização completa.
 
 ***
 
@@ -27,9 +28,9 @@ O estado atual da câmera (posição e ponto de observação).
 
 > **defaultInitialCameraLookAt**: `object`
 
-Defined in: [src/hooks/use-camera-manager.ts:59](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/894502f47f0ff64fee1a1aeae66790ab4080c55e/src/hooks/use-camera-manager.ts#L59)
+Defined in: [src/hooks/use-camera-manager.ts:65](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/329dd5ef132dd57d615e45fca2699e6c6fa5c711/src/hooks/use-camera-manager.ts#L65)
 
-Ponto de observação inicial padrão da câmera.
+Exporta o ponto de observação inicial padrão da câmera.
 
 #### x
 
@@ -49,9 +50,9 @@ Ponto de observação inicial padrão da câmera.
 
 > **defaultInitialCameraPosition**: `object`
 
-Defined in: [src/hooks/use-camera-manager.ts:58](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/894502f47f0ff64fee1a1aeae66790ab4080c55e/src/hooks/use-camera-manager.ts#L58)
+Defined in: [src/hooks/use-camera-manager.ts:64](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/329dd5ef132dd57d615e45fca2699e6c6fa5c711/src/hooks/use-camera-manager.ts#L64)
 
-Posição inicial padrão da câmera.
+Exporta a posição inicial padrão da câmera.
 
 #### x
 
@@ -71,9 +72,11 @@ Posição inicial padrão da câmera.
 
 > **handleCameraChangeFromScene**: (`newSceneCameraState`) => `void`
 
-Defined in: [src/hooks/use-camera-manager.ts:56](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/894502f47f0ff64fee1a1aeae66790ab4080c55e/src/hooks/use-camera-manager.ts#L56)
+Defined in: [src/hooks/use-camera-manager.ts:62](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/329dd5ef132dd57d615e45fca2699e6c6fa5c711/src/hooks/use-camera-manager.ts#L62)
 
-Manipula mudanças de câmera provenientes da cena 3D e as registra no histórico.
+Manipula mudanças de câmera provenientes da cena 3D
+                                                                                   (e.g., interações do usuário com OrbitControls)
+                                                                                   e as registra no histórico de comandos.
 
 #### Parameters
 
@@ -91,9 +94,9 @@ Manipula mudanças de câmera provenientes da cena 3D e as registra no históric
 
 > **handleSetCameraViewForSystem**: (`systemName`) => `void`
 
-Defined in: [src/hooks/use-camera-manager.ts:55](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/894502f47f0ff64fee1a1aeae66790ab4080c55e/src/hooks/use-camera-manager.ts#L55)
+Defined in: [src/hooks/use-camera-manager.ts:61](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/329dd5ef132dd57d615e45fca2699e6c6fa5c711/src/hooks/use-camera-manager.ts#L61)
 
-Define o sistema alvo para a câmera enquadrar.
+Função para definir o sistema alvo para a câmera enquadrar.
 
 #### Parameters
 
@@ -111,9 +114,10 @@ Define o sistema alvo para a câmera enquadrar.
 
 > **onSystemFramed**: () => `void`
 
-Defined in: [src/hooks/use-camera-manager.ts:57](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/894502f47f0ff64fee1a1aeae66790ab4080c55e/src/hooks/use-camera-manager.ts#L57)
+Defined in: [src/hooks/use-camera-manager.ts:63](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/329dd5ef132dd57d615e45fca2699e6c6fa5c711/src/hooks/use-camera-manager.ts#L63)
 
-Callback para ser chamado pela ThreeScene após o enquadramento do sistema ser concluído, resetando o `targetSystemToFrame`.
+Callback para ser chamado pela `ThreeScene` após o enquadramento do sistema ser concluído.
+                                      Isso reseta o `targetSystemToFrame`.
 
 #### Returns
 
@@ -125,6 +129,7 @@ Callback para ser chamado pela ThreeScene após o enquadramento do sistema ser c
 
 > **targetSystemToFrame**: `null` \| `string`
 
-Defined in: [src/hooks/use-camera-manager.ts:54](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/894502f47f0ff64fee1a1aeae66790ab4080c55e/src/hooks/use-camera-manager.ts#L54)
+Defined in: [src/hooks/use-camera-manager.ts:60](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/329dd5ef132dd57d615e45fca2699e6c6fa5c711/src/hooks/use-camera-manager.ts#L60)
 
-O nome do sistema alvo para a câmera enquadrar. Null se nenhum sistema estiver sendo focado.
+O nome do sistema alvo para a câmera enquadrar.
+                                               Null se nenhum sistema estiver sendo focado.

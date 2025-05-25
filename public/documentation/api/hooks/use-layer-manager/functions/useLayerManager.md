@@ -8,11 +8,11 @@
 
 > **useLayerManager**(`props`): [`UseLayerManagerReturn`](../interfaces/UseLayerManagerReturn.md)
 
-Defined in: [src/hooks/use-layer-manager.ts:50](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/894502f47f0ff64fee1a1aeae66790ab4080c55e/src/hooks/use-layer-manager.ts#L50)
+Defined in: [src/hooks/use-layer-manager.ts:57](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/329dd5ef132dd57d615e45fca2699e6c6fa5c711/src/hooks/use-layer-manager.ts#L57)
 
-Hook customizado para gerenciar o estado das camadas de visibilidade e sua manipulação.
-Inicializa as camadas com `initialLayers` e permite alternar sua visibilidade,
-registrando a ação no histórico de comandos.
+Hook customizado para gerenciar o estado das camadas de visibilidade da cena e sua manipulação.
+Inicializa as camadas com os dados de `initialLayers` e permite alternar a visibilidade
+de cada camada, registrando a ação no histórico de comandos para suportar undo/redo.
 
 ## Parameters
 
@@ -20,10 +20,12 @@ registrando a ação no histórico de comandos.
 
 [`UseLayerManagerProps`](../interfaces/UseLayerManagerProps.md)
 
-As props do hook, incluindo `executeCommand`.
+As props do hook, principalmente `executeCommand` para
+                                    integração com o sistema de histórico.
 
 ## Returns
 
 [`UseLayerManagerReturn`](../interfaces/UseLayerManagerReturn.md)
 
-Um objeto contendo o estado das camadas e a função para alternar sua visibilidade.
+Um objeto contendo o estado atual das camadas e a função
+                                 para alternar sua visibilidade.

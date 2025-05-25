@@ -6,9 +6,9 @@
 
 # Interface: UseAnnotationManagerProps
 
-Defined in: [src/hooks/use-annotation-manager.ts:38](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/894502f47f0ff64fee1a1aeae66790ab4080c55e/src/hooks/use-annotation-manager.ts#L38)
+Defined in: [src/hooks/use-annotation-manager.ts:36](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/329dd5ef132dd57d615e45fca2699e6c6fa5c711/src/hooks/use-annotation-manager.ts#L36)
 
-Props para o hook useAnnotationManager.
+Props para o hook `useAnnotationManager`.
  UseAnnotationManagerProps
 
 ## Properties
@@ -17,9 +17,10 @@ Props para o hook useAnnotationManager.
 
 > **equipmentData**: `Equipment`[]
 
-Defined in: [src/hooks/use-annotation-manager.ts:40](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/894502f47f0ff64fee1a1aeae66790ab4080c55e/src/hooks/use-annotation-manager.ts#L40)
+Defined in: [src/hooks/use-annotation-manager.ts:38](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/329dd5ef132dd57d615e45fca2699e6c6fa5c711/src/hooks/use-annotation-manager.ts#L38)
 
-Lista completa de equipamentos, usada para buscar nomes para toasts e identificar alvos.
+Lista completa de todos os equipamentos. Usada para buscar nomes de
+                                      equipamentos para mensagens de feedback (toasts) e para validar alvos.
 
 ***
 
@@ -27,6 +28,6 @@ Lista completa de equipamentos, usada para buscar nomes para toasts e identifica
 
 > `optional` **initialAnnotations**: `Annotation`[]
 
-Defined in: [src/hooks/use-annotation-manager.ts:39](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/894502f47f0ff64fee1a1aeae66790ab4080c55e/src/hooks/use-annotation-manager.ts#L39)
+Defined in: [src/hooks/use-annotation-manager.ts:37](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/329dd5ef132dd57d615e45fca2699e6c6fa5c711/src/hooks/use-annotation-manager.ts#L37)
 
-Lista inicial opcional de anotações.
+Lista inicial opcional de anotações para popular o estado.

@@ -6,7 +6,7 @@
 
 # Interface: ButtonProps
 
-Defined in: [src/components/ui/button.tsx:36](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/894502f47f0ff64fee1a1aeae66790ab4080c55e/src/components/ui/button.tsx#L36)
+Defined in: [src/components/ui/button.tsx:36](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/329dd5ef132dd57d615e45fca2699e6c6fa5c711/src/components/ui/button.tsx#L36)
 
 ## Extends
 
@@ -919,7 +919,7 @@ Defines the human readable text alternative of aria-valuenow for a range widget.
 
 > `optional` **asChild**: `boolean`
 
-Defined in: [src/components/ui/button.tsx:39](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/894502f47f0ff64fee1a1aeae66790ab4080c55e/src/components/ui/button.tsx#L39)
+Defined in: [src/components/ui/button.tsx:39](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/329dd5ef132dd57d615e45fca2699e6c6fa5c711/src/components/ui/button.tsx#L39)
 
 ***
 
@@ -3571,7 +3571,7 @@ Defined in: node\_modules/@types/react/index.d.ts:2957
 
 > `optional` **size**: `null` \| `"lg"` \| `"sm"` \| `"default"` \| `"icon"`
 
-Defined in: [src/components/ui/button.tsx:22](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/894502f47f0ff64fee1a1aeae66790ab4080c55e/src/components/ui/button.tsx#L22)
+Defined in: [src/components/ui/button.tsx:22](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/329dd5ef132dd57d615e45fca2699e6c6fa5c711/src/components/ui/button.tsx#L22)
 
 #### Inherited from
 
@@ -3747,7 +3747,7 @@ Defined in: node\_modules/@types/react/index.d.ts:3163
 
 > `optional` **variant**: `null` \| `"link"` \| `"secondary"` \| `"destructive"` \| `"default"` \| `"outline"` \| `"ghost"`
 
-Defined in: [src/components/ui/button.tsx:11](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/894502f47f0ff64fee1a1aeae66790ab4080c55e/src/components/ui/button.tsx#L11)
+Defined in: [src/components/ui/button.tsx:11](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/329dd5ef132dd57d615e45fca2699e6c6fa5c711/src/components/ui/button.tsx#L11)
 
 #### Inherited from
 

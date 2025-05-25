@@ -8,7 +8,7 @@
 
 > **processSceneMouseMove**(`event`, `mountRefCurrent`, `camera`, `equipmentMeshes`, `setHoveredEquipmentTagCallback`): `void`
 
-Defined in: [src/core/three/mouse-interaction-manager.ts:82](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/894502f47f0ff64fee1a1aeae66790ab4080c55e/src/core/three/mouse-interaction-manager.ts#L82)
+Defined in: [src/core/three/mouse-interaction-manager.ts:92](https://github.com/Dicommunitas/ThreeJS_Terminal_3D2/blob/329dd5ef132dd57d615e45fca2699e6c6fa5c711/src/core/three/mouse-interaction-manager.ts#L92)
 
 Processa um evento de movimento do mouse na cena para detectar equipamento em hover.
 Realiza raycasting para identificar o equipamento sob o cursor e chama o callback `setHoveredEquipmentTagCallback`.
@@ -37,13 +37,14 @@ A câmera de perspectiva da cena.
 
 `Object3D`\<`Object3DEventMap`\>[]
 
-Array de meshes 3D representando os equipamentos visíveis.
+Array de meshes 3D representando os equipamentos visíveis na cena.
 
 ### setHoveredEquipmentTagCallback
 
 (`tag`) => `void`
 
 Callback para definir a tag do equipamento em hover.
+       Chamado com a tag do equipamento ou null se nenhum equipamento estiver sob o cursor.
 
 ## Returns
 
